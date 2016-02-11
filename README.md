@@ -1,3 +1,6 @@
+# Instalación vía NUGET    
+`Install-Package Infodinamica.Framework.Exportable`    
+
 # Requerimientos
 **Tener una clase plana**   
 `public class DummyPerson`   
