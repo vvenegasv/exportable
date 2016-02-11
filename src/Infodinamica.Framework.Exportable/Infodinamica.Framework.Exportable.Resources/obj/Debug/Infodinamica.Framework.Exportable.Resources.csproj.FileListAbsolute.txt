@@ -1,7 +1,0 @@
-E:\Github\Framework\Exportable\src\Infodinamica.Framework.Exportable\Infodinamica.Framework.Exportable.Resources\bin\Debug\Infodinamica.Framework.Exportable.Resources.dll
-E:\Github\Framework\Exportable\src\Infodinamica.Framework.Exportable\Infodinamica.Framework.Exportable.Resources\bin\Debug\Infodinamica.Framework.Exportable.Resources.pdb
-E:\Github\Framework\Exportable\src\Infodinamica.Framework.Exportable\Infodinamica.Framework.Exportable.Resources\obj\Debug\Infodinamica.Framework.Exportable.Resources.DefaultValues.resources
-E:\Github\Framework\Exportable\src\Infodinamica.Framework.Exportable\Infodinamica.Framework.Exportable.Resources\obj\Debug\Infodinamica.Framework.Exportable.Resources.ErrorMessage.resources
-E:\Github\Framework\Exportable\src\Infodinamica.Framework.Exportable\Infodinamica.Framework.Exportable.Resources\obj\Debug\Infodinamica.Framework.Exportable.Resources.csproj.GenerateResource.Cache
-E:\Github\Framework\Exportable\src\Infodinamica.Framework.Exportable\Infodinamica.Framework.Exportable.Resources\obj\Debug\Infodinamica.Framework.Exportable.Resources.dll
-E:\Github\Framework\Exportable\src\Infodinamica.Framework.Exportable\Infodinamica.Framework.Exportable.Resources\obj\Debug\Infodinamica.Framework.Exportable.Resources.pdb
