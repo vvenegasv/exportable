@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 # Instalación vía NUGET    
 `Install-Package Infodinamica.Framework.Exportable`    
+=======
+# Instalación vía NUGET
+`Install-Package Infodinamica.Framework.Exportable`
+>>>>>>> refs/remotes/origin/develop
 
 # Requerimientos
 **Tener una clase plana**   

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Infodinamica.Framework.Core.Extensions.Common;
 using Infodinamica.Framework.Exportable.Attribute;
 
 namespace Infodinamica.Framework.Exportable.Tools
@@ -38,10 +39,10 @@ namespace Infodinamica.Framework.Exportable.Tools
 
         }
 
-        public static IList<ExportableMetadata> GetExportableMetadas(Type type)
+        public static IList<Metadata> GetExportableMetadatas(Type type)
         {
-            var exportableMetadatas = new List<ExportableMetadata>();
-            var exportableWithoutMetadata = new List<ExportableMetadata>();
+            var exportableMetadatas = new List<Metadata>();
+            var exportableWithoutMetadata = new List<Metadata>();
             
             foreach (var member in type.GetMembers())
             {
@@ -54,14 +55,14 @@ namespace Infodinamica.Framework.Exportable.Tools
                         {
                             hasExportableAttribute = true;
                             var exportableAttribute = (att as ExportableAttribute);
-                            exportableMetadatas.Add(new ExportableMetadata(member.Name, exportableAttribute.GetPosition(), exportableAttribute.GetFormat(), exportableAttribute.GetTypeValue()));
+                            exportableMetadatas.Add(new Metadata(member.Name, exportableAttribute.GetPosition(), exportableAttribute.GetFormat(), exportableAttribute.GetTypeValue()));
                         }
                     }
 
                     //If it havent ExportableAttribute, it will be added to another list because they will be in the last records
                     if (!hasExportableAttribute)
                     {
-                        exportableWithoutMetadata.Add(new ExportableMetadata(member.Name, 0, null, FieldValueType.Any));
+                        exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any));
                     }
                 }
             }
@@ -69,16 +70,68 @@ namespace Infodinamica.Framework.Exportable.Tools
             //get biggest position
             int index = 0;
             if (exportableMetadatas.Any())
+            {
                 index = exportableMetadatas
                     .Select(exp => exp.Position)
                     .Max();
+                index++;
+            }
 
             //Add elements without ExportableAttribute to returning list
             exportableWithoutMetadata.ForEach(exp =>
             {
-                index++;
                 exp.Position = index;
                 exportableMetadatas.Add(exp);
+                index++;
+            });
+
+            return exportableMetadatas;
+        }
+
+        public static IList<Metadata> GetImportableMetadatas(Type type)
+        {
+            var exportableMetadatas = new List<Metadata>();
+            var exportableWithoutMetadata = new List<Metadata>();
+
+            foreach (var member in type.GetMembers())
+            {
+                if (member.MemberType == MemberTypes.Property)
+                {
+                    var hasExportableAttribute = false;
+                    foreach (var att in member.GetCustomAttributes(true))
+                    {
+                        if (att.GetType() == typeof(ImportableAttribute))
+                        {
+                            hasExportableAttribute = true;
+                            var importableAttribute = (att as ImportableAttribute);
+                            exportableMetadatas.Add(new Metadata(member.Name, importableAttribute.GetPosition(), null, FieldValueType.Any));
+                        }
+                    }
+
+                    //If it havent ExportableAttribute, it will be added to another list because they will be in the last records
+                    if (!hasExportableAttribute)
+                    {
+                        exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any));
+                    }
+                }
+            }
+
+            //get biggest position
+            int index = 0;
+            if (exportableMetadatas.Any())
+            {
+                index = exportableMetadatas
+                    .Select(exp => exp.Position)
+                    .Max();
+                index++;
+            }
+
+            //Add elements without ExportableAttribute to returning list
+            exportableWithoutMetadata.ForEach(exp =>
+            {
+                exp.Position = index;
+                exportableMetadatas.Add(exp);
+                index++;
             });
 
             return exportableMetadatas;
@@ -95,5 +148,34 @@ namespace Infodinamica.Framework.Exportable.Tools
             Array stronglyTypedArray = (Array)toArrayMethod.Invoke(value, null);
             return stronglyTypedArray;
         }
+
+        public static string GetSheetNameFromAttribute(Type type)
+        {
+            foreach (var ct in type.GetCustomAttributes(true))
+            {
+                if (ct != null && ct.GetType() == typeof (ImportableExcelHeaderAttribute))
+                {
+                    return (ct as ImportableExcelHeaderAttribute).GetSheetName();
+                }
+                    
+            }
+
+            return null;
+        }
+
+        public static int GetFirstRowWithDataFromAttribute(Type type)
+        {
+            foreach (var ct in type.GetCustomAttributes(true))
+            {
+                if (ct != null && ct.GetType() == typeof(ImportableExcelHeaderAttribute))
+                {
+                    return (ct as ImportableExcelHeaderAttribute).GetFirstRowWithData();
+                }
+
+            }
+
+            return -1;
+        }
+
     }
 }

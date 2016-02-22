@@ -54,9 +54,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Testing\TestExcelXLSImport.cs" />
     <Compile Include="Testing\TestExcelXLSExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testing\TestExcelXLSXExport.cs" />
+    <Compile Include="Testing\TestExcelXLSXImport.cs" />
     <Compile Include="Tools\DummyFactory.cs" />
     <Compile Include="Tools\DummyPerson.cs" />
     <Compile Include="Tools\DummyPersonWithAttributes.cs" />
