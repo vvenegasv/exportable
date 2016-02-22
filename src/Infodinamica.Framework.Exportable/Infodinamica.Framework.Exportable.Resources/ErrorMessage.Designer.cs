@@ -97,11 +97,38 @@ namespace Infodinamica.Framework.Exportable.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La llave {0} no existe.
+        /// </summary>
+        public static string KeyNotFound {
+            get {
+                return ResourceManager.GetString("KeyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Existen posiciones repetidas en la hoja {0}. Revise el atributo &quot;ExportableAttribute&quot;.
         /// </summary>
         public static string RepeatedPosition {
             get {
                 return ResourceManager.GetString("RepeatedPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se proporcionó el nombre de la hoja a importar.
+        /// </summary>
+        public static string SheetNameNotProvided {
+            get {
+                return ResourceManager.GetString("SheetNameNotProvided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se ha encontrado la hoja {0}.
+        /// </summary>
+        public static string SheetNotFound {
+            get {
+                return ResourceManager.GetString("SheetNotFound", resourceCulture);
             }
         }
     }

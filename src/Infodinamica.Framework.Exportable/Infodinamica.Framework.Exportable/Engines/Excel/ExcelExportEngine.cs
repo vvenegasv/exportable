@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Infodinamica.Framework.Core.Extensions.Common;
 using Infodinamica.Framework.Exportable.Resources;
 using Infodinamica.Framework.Exportable.Tools;
 using Microsoft.VisualBasic;
@@ -12,20 +13,15 @@ using NPOI.XSSF.UserModel;
 
 namespace Infodinamica.Framework.Exportable.Engines.Excel
 {
-    public class ExcelExportEngine : IExportEngine, IExcelExportEngine
+    public class ExcelExportEngine : ExcelEngine, IExcelExportEngine
     {
-        private HSSFWorkbook ExcelXls { get; set; }
-        private XSSFWorkbook ExcelXlsx { get; set; }
-        private ExcelVersion _excelVersion;
         private readonly IDictionary<string, object> _sheets;
-
 
         public ExcelExportEngine()
         {
             _sheets = new Dictionary<string, object>();
-            _excelVersion = ExcelVersion.XLSX;
         }
-        
+
         public void AddData<T>(IList<T> data) where T : class
         {
             var sheetName = "Sheet " + _sheets.Count + 1;
@@ -39,10 +35,10 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
 
         public MemoryStream Export()
         {
-            if(_excelVersion == ExcelVersion.XLSX)
+            if(ExcelVersion == ExcelVersion.XLSX)
                 ExcelXlsx = new XSSFWorkbook();
 
-            if (_excelVersion == ExcelVersion.XLS)
+            if (ExcelVersion == ExcelVersion.XLS)
                 ExcelXls = new HSSFWorkbook();
             
 
@@ -76,7 +72,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         public void Export(string path)
         {
             var fileExtension = Path.GetExtension(path);
-            if(string.IsNullOrEmpty(fileExtension) || fileExtension.Trim().Length <= 0 )
+            if(StringMethods.IsNullOrWhiteSpace(fileExtension))
                 throw new Exception(ErrorMessage.FileExtensionNotProvided);
 
             if(!fileExtension.Equals(".xls") && !fileExtension.Equals(".xlsx"))
@@ -100,7 +96,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             foreach (var sheet in _sheets)
             {
                 var genericType = MetadataHelper.GetGenericType(sheet.Value);
-                var customProperties = MetadataHelper.GetExportableMetadas(genericType);
+                var customProperties = MetadataHelper.GetExportableMetadatas(genericType);
 
                 var positions = customProperties
                     .GroupBy(x => x.Position)
@@ -115,26 +111,20 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
 
             //Check excel version
-            if(_excelVersion!= ExcelVersion.XLS && _excelVersion!= ExcelVersion.XLSX)
+            if(ExcelVersion!= ExcelVersion.XLS && ExcelVersion!= ExcelVersion.XLSX)
                 errors.Add("Excel Version", ErrorMessage.Excel_BadVersion);
 
             return errors;
         }
         
-        public void SetFormat(ExcelVersion version)
-        {
-            _excelVersion = version;
-        }
-
-
         
 
 
         private void CreateSheet(KeyValuePair<string, object> excelSheet)
         {
             ISheet hoja = CreateSheet(excelSheet.Key);
-            IFont font = CreateNewFont();
-            ICellStyle cellStyleHeader = CreateNewCellStyle();
+            IFont font = CreateFont();
+            ICellStyle cellStyleHeader = CreateCellStyle();
             IRow header = hoja.CreateRow(0);
 
             var genericType = MetadataHelper.GetGenericType(excelSheet.Value);
@@ -165,14 +155,14 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         private void AddDataToSheet(KeyValuePair<string, object> excelSheet)
         {
             ISheet sheet = GetSheet(excelSheet.Key);
-            ICellStyle cellStyleFila = CreateNewCellStyle();
+            ICellStyle cellStyleFila = CreateCellStyle();
             IDictionary<int, ICellStyle> styles = new Dictionary<int, ICellStyle>();
             var genericType = MetadataHelper.GetGenericType(excelSheet.Value);
-            var customProperties = MetadataHelper.GetExportableMetadas(genericType);
-            
+            var customProperties = MetadataHelper.GetExportableMetadatas(genericType);
+
             //Set all styles and save in a list for future usage
             customProperties
-                .Select(x => new {x.Position, x.Format})
+                .Select(x => new { x.Position, x.Format })
                 .Distinct()
                 .ToList()
                 .ForEach(cp =>
@@ -202,7 +192,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
 
                     //Get value
                     var propValue = row.GetType().GetProperty(property.Name).GetValue(row, null);
-                    
+
                     //If value is null, set blank text an iterate again
                     if (propValue == null)
                     {
@@ -260,7 +250,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                             }
                             else
                             {
-                                var cellValue = (string) propValue;
+                                var cellValue = (string)propValue;
                                 fila.GetCell(cellCount).SetCellValue(cellValue);
                             }
                             break;
@@ -279,130 +269,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                 col++;
             }
         }
-
-        private ICellStyle GetStyleWithFormat(ICellStyle baseStyle, string dataFormat)
-        {
-            ICellStyle newStyle = CreateNewCellStyle();
-            newStyle.CloneStyleFrom(baseStyle);
-
-            if (string.IsNullOrEmpty(dataFormat))
-                return newStyle;
-
-            // check if this is a built-in format
-            var builtinFormatId = GetBuiltIndDataFormat(dataFormat);
-
-            if (builtinFormatId != -1)
-            {
-                newStyle.DataFormat = builtinFormatId;
-            }
-            else
-            {
-                // not a built-in format, so create a new one
-                var newDataFormat = CreateDataFormat();
-                newStyle.DataFormat = newDataFormat.GetFormat(dataFormat);
-            }
-
-            return newStyle;
-        }
-
-        private ICellStyle CreateNewCellStyle()
-        {
-            switch (_excelVersion)
-            {
-                case ExcelVersion.XLS:
-                    return ExcelXls.CreateCellStyle();
-                case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateCellStyle();
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-        }
-
-        private IFont CreateNewFont()
-        {
-            switch (_excelVersion)
-            {
-                case ExcelVersion.XLS:
-                    return ExcelXls.CreateFont();
-                case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateFont();
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-        }
-
-        private ISheet CreateSheet(string name)
-        {
-            switch (_excelVersion)
-            {
-                case ExcelVersion.XLS:
-                    return ExcelXls.CreateSheet(name);
-                case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateSheet(name);
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-        }
-
-        private ISheet GetSheet(string name)
-        {
-            switch (_excelVersion)
-            {
-                case ExcelVersion.XLS:
-                    return ExcelXls.GetSheet(name);
-                case ExcelVersion.XLSX:
-                    return ExcelXlsx.GetSheet(name);
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-        }
-
-        private IDataFormat CreateDataFormat()
-        {
-            switch (_excelVersion)
-            {
-                case ExcelVersion.XLS:
-                    return ExcelXls.CreateDataFormat();
-                case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateDataFormat();
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-        }
-
-        private void Write(ref MemoryStream stream)
-        {
-            if (stream == null)
-                stream = new MemoryStream();
-
-            switch (_excelVersion)
-            {
-                case ExcelVersion.XLS:
-                    ExcelXls.Write(stream);
-                    break;
-                case ExcelVersion.XLSX:
-                    ExcelXlsx.Write(stream);
-                    break;
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-        }
-
-        private short GetBuiltIndDataFormat(string dataFormat)
-        {
-            switch (_excelVersion)
-            {
-                case ExcelVersion.XLS:
-                    return HSSFDataFormat.GetBuiltinFormat(dataFormat);
-                    break;
-                case ExcelVersion.XLSX:
-                    return new XSSFDataFormat(new StylesTable()).GetFormat(dataFormat);
-                    break;
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-            
-        }
+        
     }
 
 }

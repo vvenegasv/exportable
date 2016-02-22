@@ -129,7 +129,16 @@
   <data name="InvalidFileExtension" xml:space="preserve">
     <value>La extensión {0} proporcionada para exportar el archivo es inválida</value>
   </data>
+  <data name="KeyNotFound" xml:space="preserve">
+    <value>La llave {0} no existe</value>
+  </data>
   <data name="RepeatedPosition" xml:space="preserve">
     <value>Existen posiciones repetidas en la hoja {0}. Revise el atributo "ExportableAttribute"</value>
+  </data>
+  <data name="SheetNameNotProvided" xml:space="preserve">
+    <value>No se proporcionó el nombre de la hoja a importar</value>
+  </data>
+  <data name="SheetNotFound" xml:space="preserve">
+    <value>No se ha encontrado la hoja {0}</value>
   </data>
 </root>
