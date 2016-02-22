@@ -1,6 +1,6 @@
 # Instalación vía NUGET    
 `Install-Package Infodinamica.Framework.Exportable`    
-=======
+
 # Instalación vía NUGET
 `Install-Package Infodinamica.Framework.Exportable`
 
