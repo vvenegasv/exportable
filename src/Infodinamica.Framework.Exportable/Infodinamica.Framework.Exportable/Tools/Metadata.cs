@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Infodinamica.Framework.Exportable.Tools
 {
-    internal class ExportableMetadata
+    internal class Metadata
     {
         public int Position { get; set; }
         public string Format { get; set; }
         public FieldValueType FieldValueType { get; set; }
         public string Name { get; internal set; }
 
-        public ExportableMetadata(string name, int position, string format, FieldValueType type)
+        public Metadata(string name, int position, string format, FieldValueType type)
         {
             Name = name;
             Position = position;
