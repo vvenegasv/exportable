@@ -137,6 +137,49 @@ namespace Infodinamica.Framework.Exportable.Tools
             return exportableMetadatas;
         }
 
+        public static RowStyle GetHeadersFormat(Type type)
+        {
+            RowStyle rowStyle;
+            var defaultFontName = "Calibry";
+            var defaultFontColor = "#FFFFFF";
+            short defaultFontSize = 11;
+            var defaultBorderColor = "#000000";
+            var defaultBackColor = "#888888";
+            foreach (var ct in type.GetCustomAttributes(true))
+            {
+                if (ct != null && ct.GetType() == typeof(ExportableExcelHeaderAttribute))
+                {
+                    ExportableExcelHeaderAttribute exportableAttribute = (ct as ExportableExcelHeaderAttribute);
+                    rowStyle = new RowStyle();
+
+                    if (!StringMethods.IsNullOrWhiteSpace(exportableAttribute.FontName))
+                        rowStyle.FontName = exportableAttribute.FontName;
+                    else
+                        rowStyle.FontName = defaultFontName;
+                    if (!StringMethods.IsNullOrWhiteSpace(exportableAttribute.FontColor))
+                        rowStyle.FontColor = exportableAttribute.FontColor;
+                    else
+                        rowStyle.FontColor = defaultFontColor;
+                    if ((exportableAttribute.FontSize) > 0)
+                        rowStyle.FontSize = exportableAttribute.FontSize;
+                    else
+                        rowStyle.FontSize = defaultFontSize;
+                    if (!StringMethods.IsNullOrWhiteSpace(exportableAttribute.BorderColor))
+                        rowStyle.BorderColor = exportableAttribute.BorderColor;
+                    else
+                        rowStyle.BorderColor = defaultBorderColor;
+                    if (!StringMethods.IsNullOrWhiteSpace(exportableAttribute.BackColor))
+                        rowStyle.BackColor = exportableAttribute.BackColor;
+                    else
+                        rowStyle.BackColor = defaultBackColor;
+                    return rowStyle;
+                }
+
+            }
+
+            return new RowStyle(defaultFontColor, defaultFontName, defaultFontSize, defaultBorderColor, defaultBackColor);
+        }
+
         public static Type GetGenericType(object value)
         {
             return value.GetType().GetGenericArguments()[0];

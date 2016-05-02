@@ -59,9 +59,11 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute\ExportableExcelHeaderAttribute.cs" />
     <Compile Include="Attribute\ExportableAttribute.cs" />
     <Compile Include="Attribute\ImportableAttribute.cs" />
     <Compile Include="Attribute\ImportableExcelHeaderAttribute.cs" />
@@ -71,9 +73,13 @@
     <Compile Include="Engines\Excel\ExcelVersion.cs" />
     <Compile Include="Engines\Excel\IExcelExportEngine.cs" />
     <Compile Include="Engines\Excel\IExcelImportEngine.cs" />
+    <Compile Include="Engines\Excel\XLSXStrategyStyle .cs" />
+    <Compile Include="Engines\Excel\XLSStrategyStyle.cs" />
     <Compile Include="Engines\IExportEngine.cs" />
     <Compile Include="Engines\IImportEngine.cs" />
+    <Compile Include="Engines\Excel\IExcelStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\RowStyle.cs" />
     <Compile Include="Tools\MetadataHelper.cs" />
     <Compile Include="Tools\FieldValueType.cs" />
     <Compile Include="Tools\Metadata.cs" />

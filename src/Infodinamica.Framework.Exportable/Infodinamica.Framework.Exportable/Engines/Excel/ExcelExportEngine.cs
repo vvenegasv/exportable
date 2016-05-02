@@ -123,29 +123,18 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         private void CreateSheet(KeyValuePair<string, object> excelSheet)
         {
             ISheet hoja = CreateSheet(excelSheet.Key);
-            IFont font = CreateFont();
-            ICellStyle cellStyleHeader = CreateCellStyle();
             IRow header = hoja.CreateRow(0);
 
             var genericType = MetadataHelper.GetGenericType(excelSheet.Value);
-            font.Boldweight = 100;
+            var headerFormat = MetadataHelper.GetHeadersFormat(genericType);
+
+            ICellStyle cell = CreateCellStyle(headerFormat);
 
             int cellCount = 0;
             foreach (var column in MetadataHelper.GetHeadersName(genericType))
             {
                 header.CreateCell(cellCount);
-                header.GetCell(cellCount).CellStyle = cellStyleHeader;
-                header.GetCell(cellCount).CellStyle.Alignment = HorizontalAlignment.Center;
-                header.GetCell(cellCount).CellStyle.BorderBottom = BorderStyle.Thin;
-                header.GetCell(cellCount).CellStyle.BorderLeft = BorderStyle.Thin;
-                header.GetCell(cellCount).CellStyle.BorderRight = BorderStyle.Thin;
-                header.GetCell(cellCount).CellStyle.BorderTop = BorderStyle.Thin;
-                header.GetCell(cellCount).CellStyle.BottomBorderColor = 64;
-                header.GetCell(cellCount).CellStyle.FillBackgroundColor = 64;
-                header.GetCell(cellCount).CellStyle.FillForegroundColor = 22;
-                header.GetCell(cellCount).CellStyle.FillPattern = FillPattern.SolidForeground;
-                header.GetCell(cellCount).CellStyle.VerticalAlignment = VerticalAlignment.Center;
-                header.GetCell(cellCount).CellStyle.SetFont(font);
+                header.GetCell(cellCount).CellStyle = cell;
                 header.GetCell(cellCount).SetCellValue(column);
                 cellCount += 1;
             }
@@ -269,7 +258,12 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                 col++;
             }
         }
-        
+
+        public IExcelExportEngine AsExcel()
+        {
+            return this;
+        }
+
     }
 
 }
