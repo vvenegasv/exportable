@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+//test message
 namespace Infodinamica.Framework.Test.Tools
 {
     internal static class DummyFactory
@@ -35,6 +36,28 @@ namespace Infodinamica.Framework.Test.Tools
         public static DummyPersonWIthSomeAttributes CreateDummyPersonWIthSomeAttributes()
         {
             var person = new DummyPersonWIthSomeAttributes();
+            person.BirthDate = RandomBirthDate();
+            person.Name = RandomName();
+            person.Age = DateTime.Now.Year - person.BirthDate.Year;
+            person.IsAdult = person.Age > 18;
+
+            return person;
+        }
+
+        public static DummyPersonWithHeaderAttribute CreateDummyPersonWIthHeaderAttributes()
+        {
+            var person = new DummyPersonWithHeaderAttribute();
+            person.BirthDate = RandomBirthDate();
+            person.Name = RandomName();
+            person.Age = DateTime.Now.Year - person.BirthDate.Year;
+            person.IsAdult = person.Age > 18;
+
+            return person;
+        }
+
+        public static DummyPersonWithSomeHeaderAttribute CreateDummyPersonWIthSomeHeaderAttributes()
+        {
+            var person = new DummyPersonWithSomeHeaderAttribute();
             person.BirthDate = RandomBirthDate();
             person.Name = RandomName();
             person.Age = DateTime.Now.Year - person.BirthDate.Year;

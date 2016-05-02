@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Infodinamica.Framework.Exportable.Engines.Excel;
 
 namespace Infodinamica.Framework.Exportable.Engines
 {
@@ -13,5 +14,6 @@ namespace Infodinamica.Framework.Exportable.Engines
         void AddContainer<T>(string key) where T : class;
         IList<T> GetList<T>(string key) where T : class;
         IDictionary<string, string> RunBusinessRules();
+        IExcelImportEngine AsExcel();
     }
 }

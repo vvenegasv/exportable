@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Infodinamica.Framework.Exportable.Tools;
+using Infodinamica.Framework.Exportable.Engines.Excel;
 
 namespace Infodinamica.Framework.Exportable.Engines
 {
@@ -10,5 +10,7 @@ namespace Infodinamica.Framework.Exportable.Engines
         MemoryStream Export();
         void Export(string path);
         IDictionary<string, string> RunBusinessRules();
+        IExcelExportEngine AsExcel();
+
     }
 }
