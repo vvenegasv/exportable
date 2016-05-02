@@ -10,28 +10,35 @@ namespace Infodinamica.Framework.Test.Testing
     [TestClass]
     public class TestExcelXLSImport
     {
-        private const string DIRECTORY_PATH = @"E:\Github\exportable\src\Infodinamica.Framework.Exportable\TestResults\TestFiles\";
+        private const string DIRECTORY_PATH = @"C:\Users\caustic\Desktop\GitHub\exportable\src\Infodinamica.Framework.Exportable\TestResults\";
         private const string DUMMY_PERSON = "00_DummyPerson.xls";
-        
+
         [TestMethod]
         public void TestWithAttribute()
         {
-            IImportEngine engine = new ExcelImportEngine();
-            engine.AddContainer<DummyPersonWithAttributes>("1");
-            (engine as IExcelImportEngine).SetFormat(ExcelVersion.XLS);
-            engine.SetDocument(DIRECTORY_PATH + DUMMY_PERSON);
-            var data = engine.GetList<DummyPersonWithAttributes>("1");
+            try
+            {
+                IImportEngine engine = new ExcelImportEngine();
+                engine.AsExcel().SetFormat(ExcelVersion.XLS);
+                engine.AddContainer<DummyPersonWithAttributes>("1");
+                engine.SetDocument(DIRECTORY_PATH + DUMMY_PERSON);
+                var data = engine.GetList<DummyPersonWithAttributes>("1");
 
-            if (!data.Any() || data.Count != 30)
-                throw new Exception("No se pudieron leer los registros del documento DummySimplePerson.xlsx");
+                if (!data.Any() || data.Count != 30)
+                    throw new Exception("No se pudieron leer los registros del documento DummySimplePerson.xlsx");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se pudo completar la prueba. Revise el error interno", ex);
+            }
         }
 
         [TestMethod]
         public void TestWithoutAttribute()
         {
             IImportEngine engine = new ExcelImportEngine();
-            (engine as IExcelImportEngine).AddContainer<DummyPerson>("1", "Dummy People", 1);
-            (engine as IExcelImportEngine).SetFormat(ExcelVersion.XLS);
+            engine.AsExcel().SetFormat(ExcelVersion.XLS);
+            engine.AsExcel().AddContainer<DummyPerson>("1", "Dummy People", 1);
             engine.SetDocument(DIRECTORY_PATH + DUMMY_PERSON);
             var data = engine.GetList<DummyPerson>("1");
 

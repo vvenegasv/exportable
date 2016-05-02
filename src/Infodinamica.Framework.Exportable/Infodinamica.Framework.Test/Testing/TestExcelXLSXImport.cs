@@ -10,7 +10,7 @@ namespace Infodinamica.Framework.Test.Testing
     [TestClass]
     public class TestExcelXLSXImport
     {
-        private const string DIRECTORY_PATH = @"E:\Github\exportable\src\Infodinamica.Framework.Exportable\TestResults\TestFiles\";
+        private const string DIRECTORY_PATH = @"C:\Users\caustic\Desktop\GitHub\exportable\src\Infodinamica.Framework.Exportable\TestResults\";
         private const string DUMMY_PERSON = "00_DummyPerson.xlsx";
         
         [TestMethod]
@@ -29,7 +29,7 @@ namespace Infodinamica.Framework.Test.Testing
         public void TestWithoutAttribute()
         {
             IImportEngine engine = new ExcelImportEngine();
-            (engine as IExcelImportEngine).AddContainer<DummyPerson>("1", "Dummy People", 1);
+            engine.AsExcel().AddContainer<DummyPerson>("1", "Dummy People", 1);
             engine.SetDocument(DIRECTORY_PATH + DUMMY_PERSON);
             var data = engine.GetList<DummyPerson>("1");
 

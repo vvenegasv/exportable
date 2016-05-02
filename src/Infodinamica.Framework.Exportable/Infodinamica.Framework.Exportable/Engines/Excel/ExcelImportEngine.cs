@@ -167,5 +167,10 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                 _file.Write(bytes, 0, (int)file.Length);
             }
         }
+
+        public IExcelImportEngine AsExcel()
+        {
+            return this;
+        }
     }
 }

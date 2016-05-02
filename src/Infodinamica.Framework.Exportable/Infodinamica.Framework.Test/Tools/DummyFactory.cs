@@ -44,6 +44,28 @@ namespace Infodinamica.Framework.Test.Tools
             return person;
         }
 
+        public static DummyPersonWithHeaderAttribute CreateDummyPersonWIthHeaderAttributes()
+        {
+            var person = new DummyPersonWithHeaderAttribute();
+            person.BirthDate = RandomBirthDate();
+            person.Name = RandomName();
+            person.Age = DateTime.Now.Year - person.BirthDate.Year;
+            person.IsAdult = person.Age > 18;
+
+            return person;
+        }
+
+        public static DummyPersonWithSomeHeaderAttribute CreateDummyPersonWIthSomeHeaderAttributes()
+        {
+            var person = new DummyPersonWithSomeHeaderAttribute();
+            person.BirthDate = RandomBirthDate();
+            person.Name = RandomName();
+            person.Age = DateTime.Now.Year - person.BirthDate.Year;
+            person.IsAdult = person.Age > 18;
+
+            return person;
+        }
+
         private static string RandomName()
         {
             int maxValue = Names.Count-1;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using Infodinamica.Framework.Core.Extensions.Common;
 using Infodinamica.Framework.Exportable.Resources;
 using Infodinamica.Framework.Exportable.Tools;
@@ -11,6 +12,8 @@ using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.Model;
 using NPOI.XSSF.UserModel;
+using NPOI.HSSF.Util;
+using NPOI.HSSF.Record;
 
 namespace Infodinamica.Framework.Exportable.Engines.Excel
 {
@@ -19,18 +22,20 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         protected HSSFWorkbook ExcelXls { get; set; }
         protected XSSFWorkbook ExcelXlsx { get; set; }
         protected ExcelVersion ExcelVersion;
-        
+        private short? _palleteColorSize = null;
+
 
         public ExcelEngine()
         {
             ExcelVersion = ExcelVersion.XLSX;
         }
 
+        
         public void SetFormat(ExcelVersion version)
         {
             ExcelVersion = version;
         }
-
+        
         protected void Write(ref MemoryStream stream)
         {
             if (stream == null)
@@ -87,6 +92,28 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
         }
 
+
+
+
+        internal ICellStyle CreateCellStyle(RowStyle rowStyle)
+        {
+            IColor borderColor = CreateColor(rowStyle.BorderColor);
+            IColor backColor = CreateColor(rowStyle.BackColor);
+            IFont font = CreateFont(rowStyle);
+            switch (ExcelVersion)
+            {
+                case ExcelVersion.XLS:
+                    var CellStyleXLS = new XLSStrategyStyle(ExcelXls);
+                    return CellStyleXLS.GetCellStyle(backColor, borderColor, font);
+                case ExcelVersion.XLSX:
+                    var CellStyleXLSX = new XLSXStrategyStyle(ExcelXlsx);
+                    return CellStyleXLSX.GetCellStyle(backColor, borderColor, font);
+                default:
+                    throw new Exception(ErrorMessage.Excel_BadVersion);
+            }
+        }
+
+
         protected IFont CreateFont()
         {
             switch (ExcelVersion)
@@ -99,6 +126,24 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
+
+        
+        
+        internal IFont CreateFont(RowStyle rowStyle)
+        {
+            IColor color = CreateColor(rowStyle.FontColor);
+            switch (ExcelVersion){
+                case ExcelVersion.XLS:
+                    var fontExcelXls = new XLSStrategyStyle(ExcelXls);
+                    return fontExcelXls.GetFont(rowStyle.FontSize, rowStyle.FontName, color);
+                case ExcelVersion.XLSX:
+                    var fontExcelXlsx = new XLSXStrategyStyle(ExcelXlsx);
+                    return fontExcelXlsx.GetFont(rowStyle.FontSize, rowStyle.FontName, color);
+                default:
+                    throw new Exception(ErrorMessage.Excel_BadVersion);
+            }
+        }
+
 
         protected ISheet CreateSheet(string name)
         {
@@ -139,6 +184,49 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
         }
 
+       
+
+        protected IColor CreateColor(string htmlColor)
+        {
+            Color color = ColorTranslator.FromHtml(htmlColor);
+            byte[] rgbColor = new byte[3] { color.R, color.G, color.B };
+
+            switch (ExcelVersion)
+            {
+                case Excel.ExcelVersion.XLS:
+
+                    var palette = ExcelXls.GetCustomPalette();
+                    HSSFColor hfcolor = null;
+
+                    //Limit palette
+                    if (_palleteColorSize >= 63)
+                    {
+                        hfcolor = palette.FindColor(color.R, color.G, color.B);
+                        if (hfcolor == null)
+                        {
+                            hfcolor = palette.FindSimilarColor(color.R, color.G, color.B);
+                        }
+                        _palleteColorSize++;
+                        return hfcolor;
+                    }
+                    else
+                    {
+                        if (!_palleteColorSize.HasValue)
+                            _palleteColorSize = PaletteRecord.FIRST_COLOR_INDEX;
+                        else
+                            _palleteColorSize++;
+                        palette.SetColorAtIndex(_palleteColorSize.Value, color.R, color.G, color.B);
+                        hfcolor = palette.GetColor((short)_palleteColorSize);
+                        return hfcolor;
+                    }
+
+                case Excel.ExcelVersion.XLSX:
+                    return new XSSFColor(color);
+                default:
+                    throw new Exception(ErrorMessage.Excel_BadVersion);
+            }
+        }
+
         protected short GetBuiltIndDataFormat(string dataFormat)
         {
             switch (ExcelVersion)
@@ -169,5 +257,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
+
+
     }
 }
