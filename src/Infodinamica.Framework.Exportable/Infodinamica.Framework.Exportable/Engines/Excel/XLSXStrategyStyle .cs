@@ -7,7 +7,7 @@ using NPOI.XSSF.UserModel;
 
 namespace Infodinamica.Framework.Exportable.Engines.Excel
 {
-    public class XLSXStrategyStyle : IExcelStyle
+    internal class XLSXStrategyStyle : IExcelStyle
     {
         private XSSFWorkbook Workbook;
 

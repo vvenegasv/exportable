@@ -12,7 +12,7 @@ namespace Infodinamica.Framework.Test.Testing
     [TestClass]
     public class TestExcelXLSExport
     {
-        private const string BASE_PATH = @"C:\Users\caustic\Desktop\GitHub\exportable\src\Infodinamica.Framework.Exportable\TestResults\";
+        private const string BASE_PATH = @"E:\Github\exportable\src\Infodinamica.Framework.Exportable\TestResults\TestFiles\";
 
         public TestExcelXLSExport()
         {

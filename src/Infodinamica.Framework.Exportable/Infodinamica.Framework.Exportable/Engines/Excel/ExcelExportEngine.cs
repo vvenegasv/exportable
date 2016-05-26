@@ -13,10 +13,16 @@ using NPOI.XSSF.UserModel;
 
 namespace Infodinamica.Framework.Exportable.Engines.Excel
 {
+    /// <summary>
+    /// Clase para exportar a Excel
+    /// </summary>
     public class ExcelExportEngine : ExcelEngine, IExcelExportEngine
     {
         private readonly IDictionary<string, object> _sheets;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ExcelExportEngine()
         {
             _sheets = new Dictionary<string, object>();
@@ -116,7 +122,11 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
 
             return errors;
         }
-        
+
+        public IExcelExportEngine AsExcel()
+        {
+            return this;
+        }
         
 
 
@@ -258,12 +268,6 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                 col++;
             }
         }
-
-        public IExcelExportEngine AsExcel()
-        {
-            return this;
-        }
-
     }
 
 }

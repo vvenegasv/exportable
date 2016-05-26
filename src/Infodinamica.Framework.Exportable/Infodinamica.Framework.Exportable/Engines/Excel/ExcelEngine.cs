@@ -17,11 +17,14 @@ using NPOI.HSSF.Record;
 
 namespace Infodinamica.Framework.Exportable.Engines.Excel
 {
+    /// <summary>
+    /// Clase base para Excel
+    /// </summary>
     public abstract class ExcelEngine
     {
-        protected HSSFWorkbook ExcelXls { get; set; }
-        protected XSSFWorkbook ExcelXlsx { get; set; }
-        protected ExcelVersion ExcelVersion;
+        internal HSSFWorkbook ExcelXls { get; set; }
+        internal XSSFWorkbook ExcelXlsx { get; set; }
+        internal ExcelVersion ExcelVersion;
         private short? _palleteColorSize = null;
 
 
@@ -30,13 +33,12 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             ExcelVersion = ExcelVersion.XLSX;
         }
 
-        
         public void SetFormat(ExcelVersion version)
         {
             ExcelVersion = version;
         }
         
-        protected void Write(ref MemoryStream stream)
+        internal void Write(ref MemoryStream stream)
         {
             if (stream == null)
                 stream = new MemoryStream();
@@ -54,7 +56,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
         }
         
-        protected ICellStyle GetStyleWithFormat(ICellStyle baseStyle, string dataFormat)
+        internal ICellStyle GetStyleWithFormat(ICellStyle baseStyle, string dataFormat)
         {
             ICellStyle newStyle = CreateCellStyle();
             newStyle.CloneStyleFrom(baseStyle);
@@ -78,8 +80,8 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
 
             return newStyle;
         }
-
-        protected ICellStyle CreateCellStyle()
+        
+        internal ICellStyle CreateCellStyle()
         {
             switch (ExcelVersion)
             {
@@ -91,10 +93,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
-
-
-
-
+        
         internal ICellStyle CreateCellStyle(RowStyle rowStyle)
         {
             IColor borderColor = CreateColor(rowStyle.BorderColor);
@@ -112,9 +111,8 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
-
-
-        protected IFont CreateFont()
+        
+        internal IFont CreateFont()
         {
             switch (ExcelVersion)
             {
@@ -126,8 +124,6 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
-
-        
         
         internal IFont CreateFont(RowStyle rowStyle)
         {
@@ -143,9 +139,8 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
-
-
-        protected ISheet CreateSheet(string name)
+        
+        internal ISheet CreateSheet(string name)
         {
             switch (ExcelVersion)
             {
@@ -158,7 +153,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
         }
 
-        protected ISheet GetSheet(string name)
+        internal ISheet GetSheet(string name)
         {
             switch (ExcelVersion)
             {
@@ -171,7 +166,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
         }
 
-        protected IDataFormat CreateDataFormat()
+        internal IDataFormat CreateDataFormat()
         {
             switch (ExcelVersion)
             {
@@ -184,9 +179,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
         }
 
-       
-
-        protected IColor CreateColor(string htmlColor)
+        internal IColor CreateColor(string htmlColor)
         {
             Color color = ColorTranslator.FromHtml(htmlColor);
             byte[] rgbColor = new byte[3] { color.R, color.G, color.B };
@@ -227,7 +220,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
         }
 
-        protected short GetBuiltIndDataFormat(string dataFormat)
+        internal short GetBuiltIndDataFormat(string dataFormat)
         {
             switch (ExcelVersion)
             {
@@ -243,7 +236,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
 
         }
 
-        protected void ReadFromMemoryStream(MemoryStream stream)
+        internal void ReadFromMemoryStream(MemoryStream stream)
         {
             switch (ExcelVersion)
             {
@@ -257,7 +250,5 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
-
-
     }
 }
