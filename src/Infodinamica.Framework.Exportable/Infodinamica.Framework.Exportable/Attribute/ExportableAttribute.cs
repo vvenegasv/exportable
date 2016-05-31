@@ -12,10 +12,49 @@ namespace Infodinamica.Framework.Exportable.Attribute
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class ExportableAttribute: System.Attribute
     {
-        private int _position;
-        private string _headerName;
-        private FieldValueType _typeValue;
-        private string _format;
+        private bool _isIgnored = false;
+
+        /// <summary>
+        /// Posición zero-based en la que aparece la columna
+        /// </summary>
+        public int Position { get; set; }
+
+        /// <summary>
+        /// Nombre de la columna
+        /// </summary>
+        public string HeaderName { get; set; }
+
+        /// <summary>
+        /// Tipo de valor que se usara para mostrar 
+        /// </summary>
+        public FieldValueType TypeValue { get; set; }
+
+        /// <summary>
+        /// Formato en el cual se representará el valor
+        /// </summary>
+        public string Format { get; set; }
+
+        /// <summary>
+        /// Recurso de localización
+        /// </summary>
+        public Type ResourceType { get; set; }
+
+        /// <summary>
+        /// Indica si la columna debe ser omitida en el proceso de exportación. Por defecto es falso
+        /// </summary>
+        public bool IsIgnored
+        {
+            get { return _isIgnored; }
+            set { _isIgnored = value; }
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ExportableAttribute()
+        {
+            
+        }
 
         /// <summary>
         /// Constructor
@@ -24,9 +63,9 @@ namespace Infodinamica.Framework.Exportable.Attribute
         /// <param name="headerName">Nombre de la columna</param>
         public ExportableAttribute(int position, string headerName)
         {
-            _position = position;
-            _headerName = headerName;
-            _typeValue = FieldValueType.Any;
+            Position = position;
+            HeaderName = headerName;
+            TypeValue = FieldValueType.Any;
         }
 
         /// <summary>
@@ -37,10 +76,10 @@ namespace Infodinamica.Framework.Exportable.Attribute
         /// <param name="typeValue">Tipo de dato en la cual se representará el valor</param>
         public ExportableAttribute(int position, string headerName, FieldValueType typeValue)
         {
-            _position = position;
-            _headerName = headerName;
-            _typeValue = typeValue;
-            _format = string.Empty;
+            Position = position;
+            HeaderName = headerName;
+            TypeValue = typeValue;
+            Format = string.Empty;
         }
 
         /// <summary>
@@ -52,46 +91,11 @@ namespace Infodinamica.Framework.Exportable.Attribute
         /// <param name="format">Formato en la cual se representará el valor</param>
         public ExportableAttribute(int position, string headerName, FieldValueType typeValue, string format)
         {
-            _position = position;
-            _headerName = headerName;
-            _typeValue = typeValue;
-            _format = format;
+            Position = position;
+            HeaderName = headerName;
+            TypeValue = typeValue;
+            Format = format;
         }
-
-        /// <summary>
-        /// Obtiene la posición
-        /// </summary>
-        /// <returns></returns>
-        public int GetPosition()
-        {
-            return _position;
-        }
-
-        /// <summary>
-        /// Obtiene el nombre de la columna
-        /// </summary>
-        /// <returns></returns>
-        public string GetHeaderName()
-        {
-            return _headerName;
-        }
-
-        /// <summary>
-        /// Obtiene el tipo de dato a representar
-        /// </summary>
-        /// <returns></returns>
-        public FieldValueType GetTypeValue()
-        {
-            return _typeValue;
-        }
-
-        /// <summary>
-        /// Obtiene el formato a representar
-        /// </summary>
-        /// <returns></returns>
-        public string GetFormat()
-        {
-            return _format;
-        }
+        
     }
 }

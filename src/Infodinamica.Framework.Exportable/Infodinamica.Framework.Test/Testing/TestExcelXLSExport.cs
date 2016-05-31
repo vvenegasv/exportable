@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Infodinamica.Framework.Exportable.Engines;
 using Infodinamica.Framework.Exportable.Engines.Excel;
@@ -139,6 +140,41 @@ namespace Infodinamica.Framework.Test.Testing
             {
                 dummyPeople.Add(DummyFactory.CreateDummyPersonWIthSomeHeaderAttributes());
             }
+
+            IExportEngine engine = new ExcelExportEngine();
+            engine.AddData(dummyPeople);
+            var fileName = Guid.NewGuid().ToString() + "-some-header-class.xls";
+            var filePath = BASE_PATH + fileName;
+            engine.Export(filePath);
+        }
+
+        [TestMethod]
+        public void ExportWithResourceHeaderAttribute()
+        {
+            IList<DummyPersonWithAttributesAndResource> dummyPeople = new List<DummyPersonWithAttributesAndResource>();
+            for (int index = 0; index < 30; index++)
+            {
+                dummyPeople.Add(DummyFactory.CreateDummyPersonWithAttributesAndResource());
+            }
+
+            IExportEngine engine = new ExcelExportEngine();
+            engine.AddData(dummyPeople);
+            var fileName = Guid.NewGuid().ToString() + "-some-header-class.xls";
+            var filePath = BASE_PATH + fileName;
+            engine.Export(filePath);
+        }
+
+        [TestMethod]
+        public void ExportWithResourceHeaderAttributeWithOtherCulture()
+        {
+            IList<DummyPersonWithAttributesAndResource> dummyPeople = new List<DummyPersonWithAttributesAndResource>();
+            for (int index = 0; index < 30; index++)
+            {
+                dummyPeople.Add(DummyFactory.CreateDummyPersonWithAttributesAndResource());
+            }
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
             IExportEngine engine = new ExcelExportEngine();
             engine.AddData(dummyPeople);

@@ -1,0 +1,786 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Infodinamica.Framework.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Infodinamica.Framework.Core.Containers.PlainItem">
+            <summary>
+            Representa la información de un diccionario llave-valor
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.PlainItem.Value">
+            <summary>
+            Valor de la opción
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.PlainItem.Text">
+            <summary>
+            Texto de la opción
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`1">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`1.#ctor(`0)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`1.Item1">
+            <summary>
+            Acceso al parámetro 1
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`2">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`2.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`2.#ctor(`0,`1)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`2.Item2">
+            <summary>
+            Acceso al parámetro 2
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`3">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+            <typeparam name="T3">Parámetro 3</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`3.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`3.#ctor(`0,`1,`2)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+            <param name="item3">Parámetro 3</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`3.Item3">
+            <summary>
+            Acceso al parámetro 3
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`4">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+            <typeparam name="T3">Parámetro 3</typeparam>
+            <typeparam name="T4">Parámetro 4</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`4.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`4.#ctor(`0,`1,`2,`3)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+            <param name="item3">Parámetro 3</param>
+            <param name="item4">Parámetro 4</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`4.Item4">
+            <summary>
+            Acceso al parámetro 4
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`5">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+            <typeparam name="T3">Parámetro 3</typeparam>
+            <typeparam name="T4">Parámetro 4</typeparam>
+            <typeparam name="T5">Parámetro 5</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`5.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`5.#ctor(`0,`1,`2,`3,`4)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+            <param name="item3">Parámetro 3</param>
+            <param name="item4">Parámetro 4</param>
+            <param name="item5">Parámetro 5</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`5.Item5">
+            <summary>
+            Acceso al parámetro 5
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`6">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+            <typeparam name="T3">Parámetro 3</typeparam>
+            <typeparam name="T4">Parámetro 4</typeparam>
+            <typeparam name="T5">Parámetro 5</typeparam>
+            <typeparam name="T6">Parámetro 6</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`6.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`6.#ctor(`0,`1,`2,`3,`4,`5)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+            <param name="item3">Parámetro 3</param>
+            <param name="item4">Parámetro 4</param>
+            <param name="item5">Parámetro 5</param>
+            <param name="item6">Parámetro 6</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`6.Item6">
+            <summary>
+            Acceso al parámetro 6
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`7">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+            <typeparam name="T3">Parámetro 3</typeparam>
+            <typeparam name="T4">Parámetro 4</typeparam>
+            <typeparam name="T5">Parámetro 5</typeparam>
+            <typeparam name="T6">Parámetro 6</typeparam>
+            <typeparam name="T7">Parámetro 7</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`7.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`7.#ctor(`0,`1,`2,`3,`4,`5,`6)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+            <param name="item3">Parámetro 3</param>
+            <param name="item4">Parámetro 4</param>
+            <param name="item5">Parámetro 5</param>
+            <param name="item6">Parámetro 6</param>
+            <param name="item7">Parámetro 7</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`7.Item7">
+            <summary>
+            Acceso al parámetro 7
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`8">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+            <typeparam name="T3">Parámetro 3</typeparam>
+            <typeparam name="T4">Parámetro 4</typeparam>
+            <typeparam name="T5">Parámetro 5</typeparam>
+            <typeparam name="T6">Parámetro 6</typeparam>
+            <typeparam name="T7">Parámetro 7</typeparam>
+            <typeparam name="T8">Parámetro 8</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`8.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`8.#ctor(`0,`1,`2,`3,`4,`5,`6,`7)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+            <param name="item3">Parámetro 3</param>
+            <param name="item4">Parámetro 4</param>
+            <param name="item5">Parámetro 5</param>
+            <param name="item6">Parámetro 6</param>
+            <param name="item7">Parámetro 7</param>
+            <param name="item8">Parámetro 8</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`8.Item8">
+            <summary>
+            Acceso al parámetro 8
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple`9">
+            <summary>
+            Tuple para .NET 3.5
+            </summary>
+            <typeparam name="T1">Parámetro 1</typeparam>
+            <typeparam name="T2">Parámetro 2</typeparam>
+            <typeparam name="T3">Parámetro 3</typeparam>
+            <typeparam name="T4">Parámetro 4</typeparam>
+            <typeparam name="T5">Parámetro 5</typeparam>
+            <typeparam name="T6">Parámetro 6</typeparam>
+            <typeparam name="T7">Parámetro 7</typeparam>
+            <typeparam name="T8">Parámetro 8</typeparam>
+            <typeparam name="T9">Parámetro 9</typeparam>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`9.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple`9.#ctor(`0,`1,`2,`3,`4,`5,`6,`7,`8)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="item1">Parámetro 1</param>
+            <param name="item2">Parámetro 2</param>
+            <param name="item3">Parámetro 3</param>
+            <param name="item4">Parámetro 4</param>
+            <param name="item5">Parámetro 5</param>
+            <param name="item6">Parámetro 6</param>
+            <param name="item7">Parámetro 7</param>
+            <param name="item8">Parámetro 8</param>
+            <param name="item9">Parámetro 9</param>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Containers.Tuple`9.Item9">
+            <summary>
+            Acceso al parámetro 9
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Containers.Tuple">
+            <summary>
+            Factory de tuplas
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``1(``0)">
+            <summary>
+            Crea una tupla con 1 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``2(``0,``1)">
+            <summary>
+            Crea una tupla con 2 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``3(``0,``1,``2)">
+            <summary>
+            Crea una tupla con 3 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``4(``0,``1,``2,``3)">
+            <summary>
+            Crea una tupla con 4 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``5(``0,``1,``2,``3,``4)">
+            <summary>
+            Crea una tupla con 5 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``6(``0,``1,``2,``3,``4,``5)">
+            <summary>
+            Crea una tupla con 6 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``7(``0,``1,``2,``3,``4,``5,``6)">
+            <summary>
+            Crea una tupla con 7 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)">
+            <summary>
+            Crea una tupla con 8 parámetro
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Containers.Tuple.Create``9(``0,``1,``2,``3,``4,``5,``6,``7,``8)">
+            <summary>
+            Crea una tupla con 9 parámetro
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Extensions.Common.StringMethods">
+            <summary>
+            Métodos útiles para strings
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Common.StringMethods.IsNullOrWhiteSpace(System.String)">
+            <summary>
+            Implementación de IsNullOrWhiteSpace de .NET 4.0, no provisto en .NET 3.5
+            </summary>
+            <param name="value">Valor a revisar</param>
+            <returns>Retorna verdadero si la cadena está vacía, es nula o contiene solo espacios en blanco</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Extensions.Dictionary.DictionaryMethods">
+            <summary>
+            Extensiones para diccionarios
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Dictionary.DictionaryMethods.ToList``1(System.Collections.Generic.IDictionary{``0,System.String})">
+            <summary>
+            Transforma un diccionario en un listado de PlainItem
+            </summary>
+            <typeparam name="T">Tipo de dato a castear</typeparam>
+            <param name="source">Diccionario a castear</param>
+            <returns>Listado de PlainItem</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Extensions.IO.StreamMethods">
+            <summary>
+            Métodos utiles para streams
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.IO.StreamMethods.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            Permite copiar de un stream a otro
+            </summary>
+            <seealso cref="!:http://stackoverflow.com/questions/5730863/how-to-use-stream-copyto-on-net-framework-3-5"/>
+            <param name="input">Stream a copiar</param>
+            <param name="output">Stream con los dos datos copiados</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.IO.StreamMethods.CastToByteArray(System.IO.Stream)">
+            <summary>
+            Permite castear un stream a un vector de byte
+            </summary>
+            <param name="stream">Stream a castear</param>
+            <returns>Retorna un vector de byte del stream casteado</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Extensions.Reflection.ObjectMethods">
+            <summary>
+            Extensiones para objetos
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Reflection.ObjectMethods.CastToType(System.Object,System.Type)">
+            <summary>
+            Permite castear a un tipo de dato específico
+            </summary>
+            <param name="value">Valor a castear</param>
+            <param name="destinationType">Tipo de dato resultante del casteo</param>
+            <returns>Objeto del tipo ingresado. Retorna un objeto, por lo cual debe ser nuevamente casteado</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Extensions.Reflection.TypeMethods">
+            <summary>
+            Métodos para obtener información en tiempo de ejecución de una clase determinada
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Reflection.TypeMethods.IsNumeric(System.Reflection.PropertyInfo)">
+            <summary>
+            Revisa si es numérico
+            </summary>
+            <param name="prop"></param>
+            <returns>Retorna verdadero si es un número</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Reflection.TypeMethods.IsDate(System.Reflection.PropertyInfo)">
+            <summary>
+            Revisa si es fecha
+            </summary>
+            <param name="prop">Propiedad a revisar</param>
+            <returns>Retorna verdadero si es una fecha</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Reflection.TypeMethods.IsTime(System.Reflection.PropertyInfo)">
+            <summary>
+            Revisa si es TimeSpan
+            </summary>
+            <param name="prop">Propiedad a revisar</param>
+            <returns>Retorna verdadero si es TimeSpan</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Reflection.TypeMethods.IsDateOrTime(System.Reflection.PropertyInfo)">
+            <summary>
+            Revisa si es date o TimeSpan
+            </summary>
+            <param name="prop">Propiedad a revisar</param>
+            <returns>Retorna verdadero si es fecha o TimeSpan</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Reflection.TypeMethods.IsBoolean(System.Reflection.PropertyInfo)">
+            <summary>
+            Revisa si es boolean
+            </summary>
+            <param name="prop">Propiedad a revisar</param>
+            <returns>Retorna verdadero si es boolean</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Extensions.Reflection.TypeMethods.IsNullable(System.Reflection.PropertyInfo)">
+            <summary>
+            Revisa si el campo acepta nulos
+            </summary>
+            <param name="prop">Propiedad a revisar</param>
+            <returns>Retorna verdadero si acepta nulos</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Helpers.CastHelper">
+            <summary>
+            Permite castear tipos de datos
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.CastHelper.CastToType(System.Object,System.Type)">
+            <summary>
+            Permite castear a un tipo de dato específico
+            </summary>
+            <param name="value">Valor a castear</param>
+            <param name="destinationType">Tipo de dato resultante del casteo</param>
+            <returns>Objeto del tipo ingresado. Retorna un objeto, por lo cual debe ser nuevamente casteado</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.CastHelper.CastToByteArray(System.IO.Stream)">
+            <summary>
+            Permite castear un stream a un vector de byte
+            </summary>
+            <param name="stream">Stream a castear</param>
+            <returns>Retorna un vector de byte del stream casteado</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Helpers.EnumHelper">
+            <summary>
+            Contiene utilidades para trabajar con enums
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.EnumHelper.GetValuesAndNames``1">
+            <summary>
+            Obtiene los valores y nombres del enum
+            </summary>
+            <typeparam name="T">Enum a leer</typeparam>
+            <returns>Diccionario en donde el campo key corresponde al valor del enum, mientras que el campo value corresponde al nombre del Enum</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.EnumHelper.GetValuesAndDisplayNames``1">
+            <summary>
+            Obtiene los valores y DisplayAttribute configurado en el Enum. En caso de no estar configurado el attribute, muestra el nombre del item del Enum
+            </summary>
+            <typeparam name="T">Enum a leer</typeparam>
+            <returns>Diccionario en donde el campo key corresponde al valor del enum, mientras que el campo value corresponde al nombre del enum</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.EnumHelper.GetDisplayValue``1(``0)">
+            <summary>
+            Obtiene el DisplayAttribute de un elemento dado de un Enum
+            </summary>
+            <typeparam name="T">Tipo del Enum a leer</typeparam>
+            <param name="value">Item del enum a leer</param>
+            <returns>Retorna el DisplayAttribute configurado (en caso de existir) o retorna un string vacío en caso de no estarlo</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Helpers.ReflectionHelper">
+            <summary>
+            Helper con utilidades de reflection
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.ReflectionHelper.GetCurrentMethod">
+            <summary>
+            Obtiene el nombre del método actual
+            </summary>
+            <returns>Nombre del método actual en ejecución</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.ReflectionHelper.GetParentMethod">
+            <summary>
+            Obtiene el nombre del método padre
+            </summary>
+            <returns>Nombre del método actual en ejecución</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.ReflectionHelper.GetCurrentClass">
+            <summary>
+            Obtiene el nombre de la clase actual del método en ejecución
+            </summary>
+            <returns>Nombre de la clase actual en ejecución</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.ReflectionHelper.GetParentClass">
+            <summary>
+            Obtiene el nombre de la clase actual del método en ejecución
+            </summary>
+            <returns>Nombre de la clase actual en ejecución</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.ReflectionHelper.CurrentMethod(System.Int32)">
+            <summary>
+            Obtiene el nombre del método actual
+            </summary>
+            <returns>Nombre del método actual en ejecución</returns>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Helpers.ReflectionHelper.CurrentClass(System.Int32)">
+            <summary>
+            Obtiene el nombre de la clase actual del método en ejecución
+            </summary>
+            <returns>Nombre de la clase actual en ejecución</returns>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Paginables.IPage">
+            <summary>
+            Interfaz que contiene la información de la página actual y de la cantidad de páginas existentes
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Paginables.IPage.PageSize">
+            <summary>
+            Tamaño de la página
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Paginables.IPage.AmountOfElements">
+            <summary>
+            Cantidad de elementos
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Paginables.IPage.AmountOfPages">
+            <summary>
+            Cantidad de páginas
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Paginables.IPage.CurrentPage">
+            <summary>
+            Página actual
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Paginables.IPage.HasNextPage">
+            <summary>
+            Indica si tiene una página siguiente
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Paginables.IPage.HasPrevPage">
+            <summary>
+            Indica si tiene una página previa
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Paginables.Page">
+            <summary>
+            Contiene la información de la página actual y de la cantidad de páginas existentes
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Paginables.Page.#ctor(System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="amountOfElements">Cantidad de elementos</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Paginables.Page.#ctor(System.Int32,System.Int16)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="amountOfElements">Cantidad de elementos</param>
+            <param name="pageSize">Tamaño de página</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Paginables.Page.#ctor(System.Int32,System.Int16,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="amountOfElements">Cantidad de elementos</param>
+            <param name="pageSize">Tamaño de página</param>
+            <param name="currentPage">Página actual</param>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Paginables.PagedList`1">
+            <summary>
+            Contiene los elementos y la información de la paginación actual
+            </summary>
+            <typeparam name="T">Tipo de dato a almacenar</typeparam>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Paginables.PagedList`1.Page">
+            <summary>
+            Información de la página
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Paginables.PagedList`1.#ctor(System.Collections.Generic.IList{`0},System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="list">Listado de elementos</param>
+            <param name="amountOfElements">Cantidad de elementos</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Paginables.PagedList`1.#ctor(System.Collections.Generic.IList{`0},System.Int32,System.Int16)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="list">Listado de elementos</param>
+            <param name="amountOfElements">Cantidad de elementos</param>
+            <param name="pageSize">Tamaño de página</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Paginables.PagedList`1.#ctor(System.Collections.Generic.IList{`0},System.Int32,System.Int16,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="list">Listado de elementos</param>
+            <param name="amountOfElements">Cantidad de elementos</param>
+            <param name="pageSize">Tamaño de página</param>
+            <param name="currentPage">Página actual</param>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Resources.ErrorMessages">
+            <summary>
+              Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Resources.ErrorMessages.ResourceManager">
+            <summary>
+              Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Resources.ErrorMessages.Culture">
+            <summary>
+              Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
+              búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Resources.ErrorMessages.NullParameter">
+            <summary>
+              Busca una cadena traducida similar a El parámetro es nulo y no puede ser mapeado. El parámetro entregado es del tipo {0}, en la clase {1}, en el método {2}.
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Resources.ErrorMessages.UnexpectedError">
+            <summary>
+              Busca una cadena traducida similar a Se ha producido un error inesperado al mapear el objeto. El error se produjo en la clase {0}, método {1}. Revise la pila de excepciones para mayor información.
+            </summary>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Exceptions.BaseException">
+            <summary>
+            Clase base para construcción de excepciones
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.BaseException.#ctor">
+            <summary>
+            Constructor. Se asume que el error DEBE ser logeado
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.BaseException.#ctor(System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="needBeLogged">Indica si el error debe ser logeado</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.BaseException.#ctor(System.String)">
+            <summary>
+            Constructor. Se asume que el error DEBE ser logeado
+            </summary>
+            <param name="message">Mensaje del error</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.BaseException.#ctor(System.Boolean,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="needBeLogged">Indica si el error debe ser logeado</param>
+            <param name="message">Mensaje del error</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.BaseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Mensaje del error</param>
+            <param name="innerException">Excepción hija</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.BaseException.#ctor(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="needBeLogged">Indica si el error debe ser logeado</param>
+            <param name="message">Mensaje del error</param>
+            <param name="innerException">Excepción hija</param>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Exceptions.CustomException">
+            <summary>
+            Error estandar de las aplicaciones
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.CustomException.#ctor">
+            <summary>
+            Constructor. Se asume que el error DEBE ser logeado
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.CustomException.#ctor(System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="needBeLogged">Indica si el error debe ser logeado</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.CustomException.#ctor(System.String)">
+            <summary>
+            Constructor. Se asume que el error DEBE ser logeado
+            </summary>
+            <param name="message">Mensaje del error</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.CustomException.#ctor(System.Boolean,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="needBeLogged">Indica si el error debe ser logeado</param>
+            <param name="message">Mensaje del error</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.CustomException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Mensaje del error</param>
+            <param name="innerException">Excepción hija</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.CustomException.#ctor(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="needBeLogged">Indica si el error debe ser logeado</param>
+            <param name="message">Mensaje del error</param>
+            <param name="innerException">Excepción hija</param>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Exceptions.IException">
+            <summary>
+            Interfaz base de excepciones
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Exceptions.IException.NeedBeLogged">
+            <summary>
+            Indica si el error debe ser logeado
+            </summary>
+        </member>
+        <member name="P:Infodinamica.Framework.Core.Exceptions.IException.HaveDataErrors">
+            <summary>
+            Indica si existen mensajes en el diccionario Data
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.IException.AddModelError(System.String,System.String)">
+            <summary>
+            Agrega un nuevo elemento al diccionario de errores Data
+            </summary>
+            <param name="key"></param>
+            <param name="message"></param>
+        </member>
+        <member name="T:Infodinamica.Framework.Core.Mappers.BaseMapper">
+            <summary>
+            Clase base para el mapeo de objetos
+            </summary>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Mappers.BaseMapper.CheckParameter``1(``0)">
+            <summary>
+            Revisa que el parámetro no sea nulo y arroja un error en caso que lo sea
+            </summary>
+            <typeparam name="T">Tipo de dato a revisar</typeparam>
+            <param name="parameter">Parámetro a revisar</param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Mappers.BaseMapper.ErrorHandler(System.Exception)">
+            <summary>
+            Controla las excepciones no controladas
+            </summary>
+            <param name="ex">Error que ocurrió</param>
+        </member>
+    </members>
+</doc>
