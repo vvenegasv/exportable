@@ -4,21 +4,27 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using Infodinamica.Framework.Core.Containers;
 using Infodinamica.Framework.Core.Extensions.Common;
 using Infodinamica.Framework.Core.Extensions.Reflection;
-using Infodinamica.Framework.Core.Types;
 using Infodinamica.Framework.Exportable.Resources;
 using Infodinamica.Framework.Exportable.Tools;
 using NPOI.SS.UserModel;
 
 namespace Infodinamica.Framework.Exportable.Engines.Excel
 {
+    /// <summary>
+    /// Clase para importar Excel
+    /// </summary>
     public class ExcelImportEngine: ExcelEngine, IExcelImportEngine
     {
         private readonly IList<Tuple<string, Type, string, int>> _containers;
         private MemoryStream _file;
         private bool _wasReaded;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ExcelImportEngine()
         {
             _containers = new List<Tuple<string, Type, string, int>>();
@@ -56,8 +62,6 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
             _file.Position = 0;
         }
-
-
 
         public IList<T> GetList<T>(string key) where T : class
         {
@@ -155,17 +159,6 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         public IDictionary<string, string> RunBusinessRules()
         {
             throw new NotImplementedException();
-        }
-
-        private void LoadStreamFromPath(string path)
-        {
-            using (_file = new MemoryStream())
-            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {
-                byte[] bytes = new byte[file.Length];
-                file.Read(bytes, 0, (int)file.Length);
-                _file.Write(bytes, 0, (int)file.Length);
-            }
         }
 
         public IExcelImportEngine AsExcel()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using Infodinamica.Framework.Core.Extensions.Common;
 using Infodinamica.Framework.Exportable.Attribute;
@@ -23,7 +24,25 @@ namespace Infodinamica.Framework.Exportable.Tools
                         if (att.GetType() == typeof(ExportableAttribute))
                         {
                             hasProperty = true;
-                            headeNames.Add((att as ExportableAttribute).GetHeaderName());
+                            ExportableAttribute expAtt = (ExportableAttribute)att;
+
+                            //Skip to next item if column need be ignored
+                            if(expAtt.IsIgnored)
+                                continue;
+                            
+                            //Try to get header's name from resource file
+                            if (expAtt.ResourceType != null && !StringMethods.IsNullOrWhiteSpace(expAtt.HeaderName))
+                            {
+                                // Create a resource manager to retrieve resources.
+                                ResourceManager rm = new ResourceManager(expAtt.ResourceType);
+
+                                // Retrieve the value of the string resource named "welcome".
+                                // The resource manager will retrieve the value of the  
+                                // localized resource using the caller's current culture setting.
+                                expAtt.HeaderName = rm.GetString(expAtt.HeaderName);
+                            }
+
+                            headeNames.Add(expAtt.HeaderName);
                         }
                     }
                     
@@ -54,8 +73,13 @@ namespace Infodinamica.Framework.Exportable.Tools
                         if (att.GetType() == typeof(ExportableAttribute))
                         {
                             hasExportableAttribute = true;
-                            var exportableAttribute = (att as ExportableAttribute);
-                            exportableMetadatas.Add(new Metadata(member.Name, exportableAttribute.GetPosition(), exportableAttribute.GetFormat(), exportableAttribute.GetTypeValue()));
+                            var expAtt = (att as ExportableAttribute);
+
+                            //Skip to next item if column need be ignored
+                            if (expAtt.IsIgnored)
+                                continue;
+                            
+                            exportableMetadatas.Add(new Metadata(member.Name, expAtt.Position, expAtt.Format, expAtt.TypeValue));
                         }
                     }
 

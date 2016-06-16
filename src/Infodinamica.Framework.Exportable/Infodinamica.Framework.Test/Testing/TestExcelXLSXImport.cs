@@ -10,7 +10,7 @@ namespace Infodinamica.Framework.Test.Testing
     [TestClass]
     public class TestExcelXLSXImport
     {
-        private const string DIRECTORY_PATH = @"C:\Users\caustic\Desktop\GitHub\exportable\src\Infodinamica.Framework.Exportable\TestResults\";
+        private const string DIRECTORY_PATH = @"E:\Github\exportable\src\Infodinamica.Framework.Exportable\TestResults\TestFiles\";
         private const string DUMMY_PERSON = "00_DummyPerson.xlsx";
         
         [TestMethod]
