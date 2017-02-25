@@ -13,7 +13,8 @@ namespace Infodinamica.Framework.Exportable.Tools
     {
         public static IList<string> GetHeadersName(Type type)
         {
-            var headeNames = new List<string>();            
+            var headerNames = new List<string>();
+            var headerNamesWithoutAttribute = new List<string>();
             foreach (var member in type.GetMembers())
             {
                 if (member.MemberType == MemberTypes.Property)
@@ -42,19 +43,25 @@ namespace Infodinamica.Framework.Exportable.Tools
                                 expAtt.HeaderName = rm.GetString(expAtt.HeaderName);
                             }
 
-                            headeNames.Add(expAtt.HeaderName);
+                            headerNames.Add(expAtt.HeaderName);
                         }
                     }
                     
                     //Si no tiene el atributo ExcelBuilderAttribute, se ingresará al final de la lista y el encabezado será el nombre de la propiedad
                     if (!hasProperty)
                     {
-                        headeNames.Add(((PropertyInfo)member).Name);
+                        headerNamesWithoutAttribute.Add(((PropertyInfo)member).Name);
                     }
                 }
             }
 
-            return headeNames;
+
+            //Add columns without attribute
+            foreach (var item in headerNamesWithoutAttribute)
+                headerNames.Add(item);
+            
+
+            return headerNames;
 
         }
 
@@ -79,14 +86,16 @@ namespace Infodinamica.Framework.Exportable.Tools
                             if (expAtt.IsIgnored)
                                 continue;
                             
-                            exportableMetadatas.Add(new Metadata(member.Name, expAtt.Position, expAtt.Format, expAtt.TypeValue));
+                            //exportableMetadatas.Add(new Metadata(member.Name, expAtt.Position, expAtt.Format, expAtt.TypeValue));
+                            exportableMetadatas.Add(new Metadata(member.Name, expAtt.Position, expAtt.Format, expAtt.TypeValue, string.Empty));
                         }
                     }
 
                     //If it havent ExportableAttribute, it will be added to another list because they will be in the last records
                     if (!hasExportableAttribute)
                     {
-                        exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any));
+                        //exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any));
+                        exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any, string.Empty));
                     }
                 }
             }
@@ -95,9 +104,7 @@ namespace Infodinamica.Framework.Exportable.Tools
             int index = 0;
             if (exportableMetadatas.Any())
             {
-                index = exportableMetadatas
-                    .Select(exp => exp.Position)
-                    .Max();
+                index = exportableMetadatas.Select(exp => exp.Position).Max();
                 index++;
             }
 
@@ -128,14 +135,16 @@ namespace Infodinamica.Framework.Exportable.Tools
                         {
                             hasExportableAttribute = true;
                             var importableAttribute = (att as ImportableAttribute);
-                            exportableMetadatas.Add(new Metadata(member.Name, importableAttribute.GetPosition(), null, FieldValueType.Any));
+                            //exportableMetadatas.Add(new Metadata(member.Name, importableAttribute.GetPosition(), null, FieldValueType.Any));
+                            exportableMetadatas.Add(new Metadata(member.Name, importableAttribute.Position, null, FieldValueType.Any, importableAttribute.DefaultForNullOrInvalidValues));
                         }
                     }
 
                     //If it havent ExportableAttribute, it will be added to another list because they will be in the last records
                     if (!hasExportableAttribute)
                     {
-                        exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any));
+                        //exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any));
+                        exportableWithoutMetadata.Add(new Metadata(member.Name, 0, null, FieldValueType.Any, string.Empty));
                     }
                 }
             }
@@ -144,9 +153,7 @@ namespace Infodinamica.Framework.Exportable.Tools
             int index = 0;
             if (exportableMetadatas.Any())
             {
-                index = exportableMetadatas
-                    .Select(exp => exp.Position)
-                    .Max();
+                index = exportableMetadatas.Select(exp => exp.Position).Max();
                 index++;
             }
 

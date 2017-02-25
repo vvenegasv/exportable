@@ -11,24 +11,23 @@ namespace Infodinamica.Framework.Exportable.Attribute
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class ImportableAttribute : System.Attribute
     {
-        private int _position;
-        
         /// <summary>
-        /// Constructor
+        /// Posición de la columna que debe ser leida
         /// </summary>
-        /// <param name="position">Posición de la columna</param>
+        public int Position { get; set; }
+
+        /// <summary>
+        /// Valor por defecto en caso que el dato contenido en la celda no exista o sea inválido
+        /// </summary>
+        public string DefaultForNullOrInvalidValues { get; set; }
+
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
+        /// <param name="position"></param>
         public ImportableAttribute(int position)
         {
-            _position = position;
-        }
-        
-        /// <summary>
-        /// Obtiene la posición de la columna
-        /// </summary>
-        /// <returns></returns>
-        public int GetPosition()
-        {
-            return _position;
+            this.Position = position;
         }
     }
 }

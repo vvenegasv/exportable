@@ -11,13 +11,11 @@ namespace Infodinamica.Framework.Test.Testing
     [TestClass]
     public class TestExcelXLSXExport
     {
-        private const string BASE_PATH = @"E:\Github\exportable\src\Infodinamica.Framework.Exportable\TestResults\TestFiles";
-
-
+        
         public TestExcelXLSXExport()
         {
-            if (!Directory.Exists(BASE_PATH))
-                Directory.CreateDirectory(BASE_PATH);
+            if (!Directory.Exists(PathConfig.BASE_PATH))
+                Directory.CreateDirectory(PathConfig.BASE_PATH);
         }
 
         [TestMethod]
@@ -32,7 +30,7 @@ namespace Infodinamica.Framework.Test.Testing
             IExportEngine engine = new ExcelExportEngine();
             engine.AddData(dummyPeople);
             var fileName = Guid.NewGuid().ToString() + "-plain-class.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
 
@@ -49,7 +47,7 @@ namespace Infodinamica.Framework.Test.Testing
             engine.AsExcel().AddData(dummyPeople, "Dummy People");
             
             var fileName = Guid.NewGuid().ToString() + "-plain-class-sheets-names.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
 
@@ -65,7 +63,7 @@ namespace Infodinamica.Framework.Test.Testing
             IExportEngine engine = new ExcelExportEngine();
             engine.AddData(dummyPeople);
             var fileName = Guid.NewGuid().ToString() + "-with-attributes.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
 
@@ -96,7 +94,7 @@ namespace Infodinamica.Framework.Test.Testing
             engine.AsExcel().AddData(dummyPeopleSheet2, "Another Sheet");
             engine.AsExcel().AddData(dummyPeopleSheet3, "Custom Name");
             var fileName = Guid.NewGuid().ToString() + "-with-attributes-some-sheets.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
 
@@ -112,7 +110,7 @@ namespace Infodinamica.Framework.Test.Testing
             IExportEngine engine = new ExcelExportEngine();
             engine.AddData(dummyPeople);
             var fileName = Guid.NewGuid().ToString() + "-mix-class.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
 
@@ -128,7 +126,7 @@ namespace Infodinamica.Framework.Test.Testing
             IExportEngine engine = new ExcelExportEngine();
             engine.AddData(dummyPeople);
             var fileName = Guid.NewGuid().ToString() + "-header-class.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
 
@@ -145,10 +143,11 @@ namespace Infodinamica.Framework.Test.Testing
             IExportEngine engine = new ExcelExportEngine();
             engine.AddData(dummyPeople);
             var fileName = Guid.NewGuid().ToString() + "-some-header-class.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
 
+        /*
         [TestMethod]
         public void ExportIntensiveUsage()
         {
@@ -161,8 +160,9 @@ namespace Infodinamica.Framework.Test.Testing
             IExportEngine engine = new ExcelExportEngine();
             engine.AddData(dummyPeople);
             var fileName = Guid.NewGuid().ToString() + "-intensive.xlsx";
-            var filePath = BASE_PATH + fileName;
+            var filePath = PathConfig.BASE_PATH + fileName;
             engine.Export(filePath);
         }
+        */
     }
 }

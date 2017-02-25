@@ -15,7 +15,7 @@ namespace Infodinamica.Framework.Test.Tools
         public string Name { get; set; }
 
         [Importable(1)]
-        [Exportable(1, "Birth Date", FieldValueType.Date, "MM-yyyy")]
+        [Exportable(1, "Birth Date", FieldValueType.Date, "dd/MM/yyyy")]
         public DateTime BirthDate { get; set; }
 
         [Importable(2)]
