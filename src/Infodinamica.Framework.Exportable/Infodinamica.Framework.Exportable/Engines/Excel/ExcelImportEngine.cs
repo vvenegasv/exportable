@@ -132,8 +132,12 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                         }
                         catch
                         {
-                            if(!double.TryParse(cell.StringCellValue.Trim(), out numberValue))
-                                throw new Exception(string.Format(ErrorMessage.CannotParseNumber, cell.StringCellValue));
+                            //Remove blanck spaces an try to cast again
+                            if (!double.TryParse(cell.StringCellValue.Trim(), out numberValue))
+                                //If cannot parse, try to get default value configured at attribute column
+                                if (!double.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out numberValue))
+                                    //If there isn't a default value, throw an exception. Nothing we can do
+                                    throw new Exception(string.Format(ErrorMessage.CannotParseNumber, cell.StringCellValue));
                         }
                         instanceProperty.SetValue(t, Convert.ChangeType(numberValue, instanceProperty.PropertyType), null);
                     }
@@ -141,13 +145,35 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     //Set date value
                     else if (instanceProperty != null && instanceProperty.IsDateOrTime())
                     {
-                        instanceProperty.SetValue(t, Convert.ChangeType(cell.DateCellValue, instanceProperty.PropertyType), null);
+                        DateTime dateValue;
+                        try
+                        {
+                            dateValue = cell.DateCellValue;
+                        }
+                        catch
+                        {
+                            if(!DateTime.TryParse(cell.StringCellValue.Trim(), out dateValue))
+                                if(!DateTime.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out dateValue))
+                                    throw new Exception(string.Format(ErrorMessage.CannotParseDatetime, cell.StringCellValue));
+                        }
+                        instanceProperty.SetValue(t, Convert.ChangeType(dateValue, instanceProperty.PropertyType), null);
                     }
 
                     //Set boolean value
                     else if (instanceProperty != null && instanceProperty.IsBoolean())
                     {
-                        instanceProperty.SetValue(t, Convert.ChangeType(cell.BooleanCellValue, instanceProperty.PropertyType), null);
+                        bool boolValue;
+                        try
+                        {
+                            boolValue = cell.BooleanCellValue;
+                        }
+                        catch
+                        {
+                            if (!bool.TryParse(cell.StringCellValue.Trim(), out boolValue))
+                                if (!bool.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out boolValue))
+                                    throw new Exception(string.Format(ErrorMessage.CannotParseBoolean, cell.StringCellValue));
+                        }
+                        instanceProperty.SetValue(t, Convert.ChangeType(boolValue, instanceProperty.PropertyType), null);
                     }
 
                     //Else is string

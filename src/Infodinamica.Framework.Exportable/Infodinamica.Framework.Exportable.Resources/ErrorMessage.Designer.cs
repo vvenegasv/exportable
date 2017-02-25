@@ -61,6 +61,24 @@ namespace Infodinamica.Framework.Exportable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El valor &quot;{0}&quot; no puede ser convertido a un valor booleano.
+        /// </summary>
+        public static string CannotParseBoolean {
+            get {
+                return ResourceManager.GetString("CannotParseBoolean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El valor &quot;{0}&quot; no puede ser convertido a una fecha válida.
+        /// </summary>
+        public static string CannotParseDatetime {
+            get {
+                return ResourceManager.GetString("CannotParseDatetime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El valor &quot;{0}&quot; no puede ser convertido a un número válido.
         /// </summary>
         public static string CannotParseNumber {
