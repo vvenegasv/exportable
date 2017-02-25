@@ -11,7 +11,7 @@
 	<iconUrl>https://es.gravatar.com/userimage/101034715/cc029f93b4ab6e5c7e263d8db6b35b3a.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Al importar una celda numerica que contiene espacios en blanco, estos son removidos para forzar la conversión a un número válido</releaseNotes>
+    <releaseNotes>Se corrige un error que impedía utilizar el valor por defecto cuando la celda estaba vacía o tenía un valor inválido</releaseNotes>
     <copyright>Copyright © 2016 - 2017 Infodinamica Limitada</copyright>
     <tags>EXCEL EXCEL-2003 EXCEL-2007 EXPORT-EXCEL IMPORT-EXCEL NPOI NPOI-WRAPPER</tags>
   </metadata>

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotParseBoolean" xml:space="preserve">
+    <value>El valor "{0}" no puede ser convertido a un valor booleano</value>
+  </data>
+  <data name="CannotParseDatetime" xml:space="preserve">
+    <value>El valor "{0}" no puede ser convertido a una fecha válida</value>
+  </data>
   <data name="CannotParseNumber" xml:space="preserve">
     <value>El valor "{0}" no puede ser convertido a un número válido</value>
   </data>
