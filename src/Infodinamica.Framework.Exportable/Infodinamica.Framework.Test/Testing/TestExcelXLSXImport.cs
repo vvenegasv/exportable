@@ -10,7 +10,6 @@ namespace Infodinamica.Framework.Test.Testing
     [TestClass]
     public class TestExcelXLSXImport
     {
-        private const string DIRECTORY_PATH = @"E:\Github\exportable\src\Infodinamica.Framework.Exportable\TestResults\TestFiles\";
         private const string DUMMY_PERSON = "00_DummyPerson.xlsx";
         
         [TestMethod]
@@ -18,7 +17,7 @@ namespace Infodinamica.Framework.Test.Testing
         {
             IImportEngine engine = new ExcelImportEngine();
             engine.AddContainer<DummyPersonWithAttributes>("1");
-            engine.SetDocument(DIRECTORY_PATH + DUMMY_PERSON);
+            engine.SetDocument(PathConfig.BASE_PATH + DUMMY_PERSON);
             var data = engine.GetList<DummyPersonWithAttributes>("1");
 
             if (!data.Any() || data.Count != 30)
@@ -30,7 +29,7 @@ namespace Infodinamica.Framework.Test.Testing
         {
             IImportEngine engine = new ExcelImportEngine();
             engine.AsExcel().AddContainer<DummyPerson>("1", "Dummy People", 1);
-            engine.SetDocument(DIRECTORY_PATH + DUMMY_PERSON);
+            engine.SetDocument(PathConfig.BASE_PATH + DUMMY_PERSON);
             var data = engine.GetList<DummyPerson>("1");
 
             if (!data.Any() || data.Count != 30)

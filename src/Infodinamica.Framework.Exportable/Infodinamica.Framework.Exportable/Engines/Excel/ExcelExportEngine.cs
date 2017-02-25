@@ -161,17 +161,20 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
 
             //Set all styles and save in a list for future usage
             customProperties
-                .Select(x => new { x.Position, x.Format })
+                .Select(x => new { x.Position, x.Format, x.FieldValueType })
                 .Distinct()
                 .ToList()
                 .ForEach(cp =>
                 {
-                    styles.Add(cp.Position, GetStyleWithFormat(cellStyleFila, cp.Format));
+                    if (cp.FieldValueType == FieldValueType.Date || cp.FieldValueType == FieldValueType.Numeric)
+                        styles.Add(cp.Position, GetStyleWithFormat(cellStyleFila, cp.Format, true));
+                    else
+                        styles.Add(cp.Position, GetStyleWithFormat(cellStyleFila, cp.Format));
                 });
 
             //Adds default format
-            styles.Add(-1, GetStyleWithFormat(cellStyleFila, DefaultValues.DefaultNumericFormat));
-            styles.Add(-2, GetStyleWithFormat(cellStyleFila, DefaultValues.DefaultDateFormat));
+            styles.Add(-1, GetStyleWithFormat(cellStyleFila, DefaultValues.DefaultNumericFormat, true));
+            styles.Add(-2, GetStyleWithFormat(cellStyleFila, DefaultValues.DefaultDateFormat, true));
 
 
             //Al rows

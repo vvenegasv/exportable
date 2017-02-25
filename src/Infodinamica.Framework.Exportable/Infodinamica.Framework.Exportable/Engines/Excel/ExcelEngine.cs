@@ -55,196 +55,262 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
-        
+
         internal ICellStyle GetStyleWithFormat(ICellStyle baseStyle, string dataFormat)
         {
-            ICellStyle newStyle = CreateCellStyle();
-            newStyle.CloneStyleFrom(baseStyle);
-
-            if (StringMethods.IsNullOrWhiteSpace(dataFormat))
-                return newStyle;
-
-            // check if this is a built-in format
-            var builtinFormatId = GetBuiltIndDataFormat(dataFormat);
-
-            if (builtinFormatId != -1)
-            {
-                newStyle.DataFormat = builtinFormatId;
-            }
-            else
-            {
-                // not a built-in format, so create a new one
-                var newDataFormat = CreateDataFormat();
-                newStyle.DataFormat = newDataFormat.GetFormat(dataFormat);
-            }
-
-            return newStyle;
+            return GetStyleWithFormat(baseStyle, dataFormat, false);
         }
-        
+
+
+        internal ICellStyle GetStyleWithFormat(ICellStyle baseStyle, string dataFormat, bool isNumberOrDate)
+        {
+            ICellStyle cellStyle = this.CreateCellStyle();
+            cellStyle.CloneStyleFrom(baseStyle);
+
+            //Se valida que tenga formato
+            if (StringMethods.IsNullOrWhiteSpace(dataFormat))
+                return cellStyle;
+
+            //Las fechas las forzamos a utilizar un nuevo formato y no uno predefinido
+            if (isNumberOrDate)
+            {
+                IDataFormat dataFormat2 = this.CreateDataFormat();
+                cellStyle.DataFormat = dataFormat2.GetFormat(dataFormat);
+                return cellStyle;
+
+            } else
+            {
+                short builtIndDataFormat = this.GetBuiltIndDataFormat(dataFormat);
+                if (builtIndDataFormat != -1)
+                {
+                    cellStyle.DataFormat = builtIndDataFormat;
+                }
+                else
+                {
+                    IDataFormat dataFormat2 = this.CreateDataFormat();
+                    cellStyle.DataFormat = dataFormat2.GetFormat(dataFormat);
+                }
+                return cellStyle;
+            }
+        }
+
         internal ICellStyle CreateCellStyle()
         {
-            switch (ExcelVersion)
+            ICellStyle result;
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    return ExcelXls.CreateCellStyle();
+                    result = this.ExcelXls.CreateCellStyle();
+                    break;
                 case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateCellStyle();
+                    result = this.ExcelXlsx.CreateCellStyle();
+                    break;
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+            return result;
         }
-        
+
         internal ICellStyle CreateCellStyle(RowStyle rowStyle)
         {
-            IColor borderColor = CreateColor(rowStyle.BorderColor);
-            IColor backColor = CreateColor(rowStyle.BackColor);
-            IFont font = CreateFont(rowStyle);
-            switch (ExcelVersion)
+            IColor borderColor = this.CreateColor(rowStyle.BorderColor);
+            IColor backColor = this.CreateColor(rowStyle.BackColor);
+            IFont font = this.CreateFont(rowStyle);
+            ICellStyle cellStyle;
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    var CellStyleXLS = new XLSStrategyStyle(ExcelXls);
-                    return CellStyleXLS.GetCellStyle(backColor, borderColor, font);
+                {
+                    XLSStrategyStyle xLSStrategyStyle = new XLSStrategyStyle(this.ExcelXls);
+                    cellStyle = xLSStrategyStyle.GetCellStyle(backColor, borderColor, font);
+                    break;
+                }
                 case ExcelVersion.XLSX:
-                    var CellStyleXLSX = new XLSXStrategyStyle(ExcelXlsx);
-                    return CellStyleXLSX.GetCellStyle(backColor, borderColor, font);
+                {
+                    XLSXStrategyStyle xLSXStrategyStyle = new XLSXStrategyStyle(this.ExcelXlsx);
+                    cellStyle = xLSXStrategyStyle.GetCellStyle(backColor, borderColor, font);
+                    break;
+                }
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+            return cellStyle;
         }
-        
+
         internal IFont CreateFont()
         {
-            switch (ExcelVersion)
+            IFont result;
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    return ExcelXls.CreateFont();
+                    result = this.ExcelXls.CreateFont();
+                    break;
                 case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateFont();
+                    result = this.ExcelXlsx.CreateFont();
+                    break;
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+            return result;
         }
-        
+
         internal IFont CreateFont(RowStyle rowStyle)
         {
-            IColor color = CreateColor(rowStyle.FontColor);
-            switch (ExcelVersion){
-                case ExcelVersion.XLS:
-                    var fontExcelXls = new XLSStrategyStyle(ExcelXls);
-                    return fontExcelXls.GetFont(rowStyle.FontSize, rowStyle.FontName, color);
-                case ExcelVersion.XLSX:
-                    var fontExcelXlsx = new XLSXStrategyStyle(ExcelXlsx);
-                    return fontExcelXlsx.GetFont(rowStyle.FontSize, rowStyle.FontName, color);
-                default:
-                    throw new Exception(ErrorMessage.Excel_BadVersion);
-            }
-        }
-        
-        internal ISheet CreateSheet(string name)
-        {
-            switch (ExcelVersion)
+            IColor fontColor = this.CreateColor(rowStyle.FontColor);
+            IFont font;
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    return ExcelXls.CreateSheet(name);
+                {
+                    XLSStrategyStyle xLSStrategyStyle = new XLSStrategyStyle(this.ExcelXls);
+                    font = xLSStrategyStyle.GetFont(rowStyle.FontSize, rowStyle.FontName, fontColor);
+                    break;
+                }
                 case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateSheet(name);
+                {
+                    XLSXStrategyStyle xLSXStrategyStyle = new XLSXStrategyStyle(this.ExcelXlsx);
+                    font = xLSXStrategyStyle.GetFont(rowStyle.FontSize, rowStyle.FontName, fontColor);
+                    break;
+                }
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+            return font;
+        }
+
+        internal ISheet CreateSheet(string name)
+        {
+            ISheet result;
+            switch (this.ExcelVersion)
+            {
+                case ExcelVersion.XLS:
+                    result = this.ExcelXls.CreateSheet(name);
+                    break;
+                case ExcelVersion.XLSX:
+                    result = this.ExcelXlsx.CreateSheet(name);
+                    break;
+                default:
+                    throw new Exception(ErrorMessage.Excel_BadVersion);
+            }
+            return result;
         }
 
         internal ISheet GetSheet(string name)
         {
-            switch (ExcelVersion)
+            ISheet sheet;
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    return ExcelXls.GetSheet(name);
+                    sheet = this.ExcelXls.GetSheet(name);
+                    break;
                 case ExcelVersion.XLSX:
-                    return ExcelXlsx.GetSheet(name);
+                    sheet = this.ExcelXlsx.GetSheet(name);
+                    break;
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+            return sheet;
         }
 
         internal IDataFormat CreateDataFormat()
         {
-            switch (ExcelVersion)
+            IDataFormat result;
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    return ExcelXls.CreateDataFormat();
+                    result = this.ExcelXls.CreateDataFormat();
+                    break;
                 case ExcelVersion.XLSX:
-                    return ExcelXlsx.CreateDataFormat();
+                    result = this.ExcelXlsx.CreateDataFormat();
+                    break;
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+            return result;
         }
 
         internal IColor CreateColor(string htmlColor)
         {
             Color color = ColorTranslator.FromHtml(htmlColor);
-            byte[] rgbColor = new byte[3] { color.R, color.G, color.B };
-
-            switch (ExcelVersion)
+            byte[] array = new byte[]
             {
-                case Excel.ExcelVersion.XLS:
-
-                    var palette = ExcelXls.GetCustomPalette();
-                    HSSFColor hfcolor = null;
-
-                    //Limit palette
-                    if (_palleteColorSize >= 63)
+                color.R,
+                color.G,
+                color.B
+            };
+            IColor result;
+            switch (this.ExcelVersion)
+            {
+                case ExcelVersion.XLS:
+                {
+                    HSSFPalette customPalette = this.ExcelXls.GetCustomPalette();
+                    if (this._palleteColorSize >= 63)
                     {
-                        hfcolor = palette.FindColor(color.R, color.G, color.B);
-                        if (hfcolor == null)
+                        HSSFColor hSSFColor = customPalette.FindColor(color.R, color.G, color.B);
+                        if (hSSFColor == null)
                         {
-                            hfcolor = palette.FindSimilarColor(color.R, color.G, color.B);
+                            hSSFColor = customPalette.FindSimilarColor(color.R, color.G, color.B);
                         }
-                        _palleteColorSize++;
-                        return hfcolor;
+                        short? palleteColorSize = this._palleteColorSize;
+                        this._palleteColorSize = (palleteColorSize.HasValue
+                            ? new short?((short)(palleteColorSize.GetValueOrDefault() + 1))
+                            : null);
+                        result = hSSFColor;
                     }
                     else
                     {
-                        if (!_palleteColorSize.HasValue)
-                            _palleteColorSize = PaletteRecord.FIRST_COLOR_INDEX;
+                        if (!this._palleteColorSize.HasValue)
+                        {
+                            this._palleteColorSize = new short?(8);
+                        }
                         else
-                            _palleteColorSize++;
-                        palette.SetColorAtIndex(_palleteColorSize.Value, color.R, color.G, color.B);
-                        hfcolor = palette.GetColor((short)_palleteColorSize);
-                        return hfcolor;
+                        {
+                            short? palleteColorSize = this._palleteColorSize;
+                            this._palleteColorSize = (palleteColorSize.HasValue
+                                ? new short?((short)(palleteColorSize.GetValueOrDefault() + 1))
+                                : null);
+                        }
+                        customPalette.SetColorAtIndex(this._palleteColorSize.Value, color.R, color.G, color.B);
+                        HSSFColor hSSFColor = customPalette.GetColor(this._palleteColorSize.Value);
+                        result = hSSFColor;
                     }
-
-                case Excel.ExcelVersion.XLSX:
-                    return new XSSFColor(color);
+                    break;
+                }
+                case ExcelVersion.XLSX:
+                    result = new XSSFColor(color);
+                    break;
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+            return result;
         }
 
         internal short GetBuiltIndDataFormat(string dataFormat)
         {
-            switch (ExcelVersion)
+            short result;
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    return HSSFDataFormat.GetBuiltinFormat(dataFormat);
+                    result = HSSFDataFormat.GetBuiltinFormat(dataFormat);
                     break;
                 case ExcelVersion.XLSX:
-                    return new XSSFDataFormat(new StylesTable()).GetFormat(dataFormat);
+                    result = new XSSFDataFormat(new StylesTable()).GetFormat(dataFormat);
                     break;
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
-
+            return result;
         }
 
         internal void ReadFromMemoryStream(MemoryStream stream)
         {
-            switch (ExcelVersion)
+            switch (this.ExcelVersion)
             {
                 case ExcelVersion.XLS:
-                    ExcelXls = new HSSFWorkbook(stream);
+                    this.ExcelXls = new HSSFWorkbook(stream);
                     break;
                 case ExcelVersion.XLSX:
-                    ExcelXlsx = new XSSFWorkbook(stream);
+                    this.ExcelXlsx = new XSSFWorkbook(stream);
                     break;
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);

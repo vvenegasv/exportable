@@ -60,6 +60,7 @@
     <Compile Include="Testing\TestExcelXLSXExport.cs" />
     <Compile Include="Testing\TestExcelXLSXImport.cs" />
     <Compile Include="Tools\DummyPersonWithAttributesAndResource.cs" />
+    <Compile Include="Tools\PathConfig.cs" />
     <Compile Include="Tools\res.en.Designer.cs">
       <DependentUpon>res.en.resx</DependentUpon>
       <AutoGen>True</AutoGen>

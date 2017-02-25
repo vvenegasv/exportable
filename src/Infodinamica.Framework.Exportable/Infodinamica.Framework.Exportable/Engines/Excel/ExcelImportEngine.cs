@@ -125,7 +125,17 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     //Set numeric value
                     if (instanceProperty != null && instanceProperty.IsNumeric())
                     {
-                        instanceProperty.SetValue(t, Convert.ChangeType(cell.NumericCellValue, instanceProperty.PropertyType), null);
+                        double numberValue;
+                        try
+                        {
+                            numberValue = cell.NumericCellValue;
+                        }
+                        catch
+                        {
+                            if(!double.TryParse(cell.StringCellValue.Trim(), out numberValue))
+                                throw new Exception(string.Format(ErrorMessage.CannotParseNumber, cell.StringCellValue));
+                        }
+                        instanceProperty.SetValue(t, Convert.ChangeType(numberValue, instanceProperty.PropertyType), null);
                     }
 
                     //Set date value

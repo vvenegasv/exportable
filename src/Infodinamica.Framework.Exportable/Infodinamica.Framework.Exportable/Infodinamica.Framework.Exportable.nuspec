@@ -11,8 +11,8 @@
 	<iconUrl>https://es.gravatar.com/userimage/101034715/cc029f93b4ab6e5c7e263d8db6b35b3a.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Se pueden utilizar recursos para localizar la exportación. Se agrega la propiedad IsIgnored, que permite ignorar un determinado campo para no incluirlo en la exportación</releaseNotes>
-    <copyright>Copyright © 2016 Infodinamica Limitada</copyright>
-    <tags>EXCEL 2003 2007 EXPORT IMPORT NPOI LIST IList GENERIC</tags>
+    <releaseNotes>Al importar una celda numerica que contiene espacios en blanco, estos son removidos para forzar la conversión a un número válido</releaseNotes>
+    <copyright>Copyright © 2016 - 2017 Infodinamica Limitada</copyright>
+    <tags>EXCEL EXCEL-2003 EXCEL-2007 EXPORT-EXCEL IMPORT-EXCEL NPOI NPOI-WRAPPER</tags>
   </metadata>
 </package>
