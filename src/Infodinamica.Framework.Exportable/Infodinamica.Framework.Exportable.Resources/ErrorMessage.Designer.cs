@@ -88,6 +88,15 @@ namespace Infodinamica.Framework.Exportable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se pudo obtener el texto de la celda.
+        /// </summary>
+        public static string CannotParseString {
+            get {
+                return ResourceManager.GetString("CannotParseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se han presentado {0} errores al validar los datos antes de exportarlos. Para más informacion, revise la propiedad &quot;Data&quot;.
         /// </summary>
         public static string EngineHasBusinessExceptions {

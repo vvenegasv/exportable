@@ -126,6 +126,9 @@
   <data name="CannotParseNumber" xml:space="preserve">
     <value>El valor "{0}" no puede ser convertido a un número válido</value>
   </data>
+  <data name="CannotParseString" xml:space="preserve">
+    <value>No se pudo obtener el texto de la celda</value>
+  </data>
   <data name="EngineHasBusinessExceptions" xml:space="preserve">
     <value>Se han presentado {0} errores al validar los datos antes de exportarlos. Para más informacion, revise la propiedad "Data"</value>
   </data>
