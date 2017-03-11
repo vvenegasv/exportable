@@ -61,6 +61,12 @@
     <Compile Include="Testing\TestExcelXLSXImport.cs" />
     <Compile Include="Tools\DummyPersonWithAttributesAndDefaultValues.cs" />
     <Compile Include="Tools\DummyPersonWithAttributesAndResource.cs" />
+    <Compile Include="Tools\FileHelper.cs" />
+    <Compile Include="Tools\Files.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Files.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tools\PathConfig.cs" />
     <Compile Include="Tools\res.en.Designer.cs">
       <DependentUpon>res.en.resx</DependentUpon>
@@ -86,6 +92,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Tools\Files.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Files.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tools\res.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>res.en.Designer.cs</LastGenOutput>
@@ -94,6 +104,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>res.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\00_DummyPerson.xls" />
+    <None Include="Resources\00_DummyPerson.xlsx" />
+    <None Include="Resources\00_DummyPersonWithEmptyValues.xls" />
+    <None Include="Resources\00_DummyPersonWithEmptyValues.xlsx" />
+    <None Include="Resources\00_MultipleData.xls" />
+    <None Include="Resources\00_MultipleData.xlsx" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

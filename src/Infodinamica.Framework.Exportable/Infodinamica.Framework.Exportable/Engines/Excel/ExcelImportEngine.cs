@@ -19,6 +19,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
     /// </summary>
     public class ExcelImportEngine: ExcelEngine, IExcelImportEngine
     {
+        private static readonly object locker = new object();
         private readonly IList<Tuple<string, Type, string, int>> _containers;
         private MemoryStream _file;
         private bool _wasReaded;
@@ -68,8 +69,14 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         {
             if (!_wasReaded)
             {
-                ReadFromMemoryStream(_file);
-                _wasReaded = true;
+                lock (locker)
+                {
+                    if (!_wasReaded)
+                    {
+                        ReadFromMemoryStream(_file);
+                        _wasReaded = true;
+                    }
+                }
             }
             
             IList<T> data = new List<T>();

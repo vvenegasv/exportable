@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Infodinamica.Framework.Exportable.Engines;
 using Infodinamica.Framework.Exportable.Engines.Excel;
 using Infodinamica.Framework.Test.Tools;
@@ -12,6 +14,12 @@ namespace Infodinamica.Framework.Test.Testing
     {
         private const string DUMMY_PERSON = "00_DummyPerson.xls";
         private const string DUMMY_PERSON_DEFAULT = "00_DummyPersonWithEmptyValues.xls";
+        private const string MULTIPLE_DATA = "00_MultipleData.xls";
+
+        public TestExcelXLSImport()
+        {
+            FileHelper.CreateResources();
+        }
 
         [TestMethod]
         public void TestWithAttribute()
@@ -57,6 +65,35 @@ namespace Infodinamica.Framework.Test.Testing
 
             if (!data.Any() || data.Count != 30)
                 throw new Exception("No se pudieron leer los registros del documento " + DUMMY_PERSON_DEFAULT);
+        }
+
+        [TestMethod]
+        public void TestWithParallelReader()
+        {
+            IImportEngine engine = new ExcelImportEngine();
+            engine.AsExcel().SetFormat(ExcelVersion.XLS);
+            engine.SetDocument(PathConfig.BASE_PATH + MULTIPLE_DATA);
+            var resetEvents = new List<ManualResetEvent>();
+            var countItemsInSheets = new List<int>();
+
+            foreach (var key in new string[] {"1", "2"})
+            {
+                var evt = new ManualResetEvent(false);
+                resetEvents.Add(evt);
+                ThreadPool.QueueUserWorkItem(i =>
+                {
+                    engine.AsExcel().AddContainer<DummyPerson>(key, "Hoja" + key, 1);
+                    var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>((string)i);
+                    countItemsInSheets.Add(data.Count);
+                    evt.Set();
+                }, key);
+            }
+
+            foreach (var evt in resetEvents)
+                evt.WaitOne();
+
+            if (!countItemsInSheets.Any() || countItemsInSheets.Sum() != 60)
+                throw new Exception("No se pudieron leer los registros en paralelo del documento " + MULTIPLE_DATA);
         }
     }
 }
