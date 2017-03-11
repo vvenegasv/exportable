@@ -16,8 +16,7 @@ namespace Infodinamica.Framework.Test.Testing
 
         public TestExcelXLSExport()
         {
-            if (!Directory.Exists(PathConfig.BASE_PATH))
-                Directory.CreateDirectory(PathConfig.BASE_PATH);
+            FileHelper.CreateResources();
         }
 
         [TestMethod]
