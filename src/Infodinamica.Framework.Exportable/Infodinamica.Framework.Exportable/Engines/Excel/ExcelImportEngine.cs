@@ -212,9 +212,9 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                         returnValue = cell.NumericCellValue;
                         return true;
                     case CellType.String:
-                        return double.TryParse(cell.StringCellValue, out returnValue);
+                        return double.TryParse(cell.StringCellValue.Trim(), out returnValue);
                     case CellType.Unknown:
-                        return double.TryParse(cell.StringCellValue, out returnValue);
+                        return double.TryParse(cell.StringCellValue.Trim(), out returnValue);
                     default:
                         return false;
                 }
@@ -306,9 +306,9 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                         else
                             return false;
                     case CellType.String:
-                        return bool.TryParse(cell.StringCellValue, out returnValue);
+                        return bool.TryParse(cell.StringCellValue.Trim(), out returnValue);
                     case CellType.Unknown:
-                        return bool.TryParse(cell.StringCellValue, out returnValue);
+                        return bool.TryParse(cell.StringCellValue.Trim(), out returnValue);
                     default:
                         return false;
                 }
@@ -347,9 +347,9 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     case CellType.Numeric:
                         return DateTime.TryParse(cell.NumericCellValue.ToString(), out returnValue);
                     case CellType.String:
-                        return DateTime.TryParse(cell.StringCellValue.ToString(), out returnValue);
+                        return DateTime.TryParse(cell.StringCellValue.Trim(), out returnValue);
                     case CellType.Unknown:
-                        return DateTime.TryParse(cell.StringCellValue.ToString(), out returnValue);
+                        return DateTime.TryParse(cell.StringCellValue.Trim(), out returnValue);
                     default:
                         return false;
                 }
