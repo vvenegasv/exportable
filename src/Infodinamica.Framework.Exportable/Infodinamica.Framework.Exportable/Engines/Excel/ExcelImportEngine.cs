@@ -9,6 +9,7 @@ using Infodinamica.Framework.Core.Extensions.Common;
 using Infodinamica.Framework.Core.Extensions.Reflection;
 using Infodinamica.Framework.Exportable.Resources;
 using Infodinamica.Framework.Exportable.Tools;
+using NPOI.OpenXmlFormats.Shared;
 using NPOI.SS.UserModel;
 
 namespace Infodinamica.Framework.Exportable.Engines.Excel
@@ -62,7 +63,7 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             }
             _file.Position = 0;
         }
-
+        
         public IList<T> GetList<T>(string key) where T : class
         {
             if (!_wasReaded)
@@ -126,19 +127,9 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     if (instanceProperty != null && instanceProperty.IsNumeric())
                     {
                         double numberValue;
-                        try
-                        {
-                            numberValue = cell.NumericCellValue;
-                        }
-                        catch
-                        {
-                            //Remove blanck spaces an try to cast again
-                            if (!double.TryParse(cell.StringCellValue.Trim(), out numberValue))
-                                //If cannot parse, try to get default value configured at attribute column
-                                if (!double.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out numberValue))
-                                    //If there isn't a default value, throw an exception. Nothing we can do
-                                    throw new Exception(string.Format(ErrorMessage.CannotParseNumber, cell.StringCellValue));
-                        }
+                        if (!TryGetNumber(cell, out numberValue))
+                            if (!double.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out numberValue))
+                                throw new Exception(string.Format(ErrorMessage.CannotParseNumber, GetText(cell)));
                         instanceProperty.SetValue(t, Convert.ChangeType(numberValue, instanceProperty.PropertyType), null);
                     }
 
@@ -146,16 +137,9 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     else if (instanceProperty != null && instanceProperty.IsDateOrTime())
                     {
                         DateTime dateValue;
-                        try
-                        {
-                            dateValue = cell.DateCellValue;
-                        }
-                        catch
-                        {
-                            if(!DateTime.TryParse(cell.StringCellValue.Trim(), out dateValue))
-                                if(!DateTime.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out dateValue))
-                                    throw new Exception(string.Format(ErrorMessage.CannotParseDatetime, cell.StringCellValue));
-                        }
+                        if (!TryGetDate(cell, out dateValue))
+                            if (!DateTime.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out dateValue))
+                                throw new Exception(string.Format(ErrorMessage.CannotParseDatetime, GetText(cell)));
                         instanceProperty.SetValue(t, Convert.ChangeType(dateValue, instanceProperty.PropertyType), null);
                     }
 
@@ -163,23 +147,22 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                     else if (instanceProperty != null && instanceProperty.IsBoolean())
                     {
                         bool boolValue;
-                        try
-                        {
-                            boolValue = cell.BooleanCellValue;
-                        }
-                        catch
-                        {
-                            if (!bool.TryParse(cell.StringCellValue.Trim(), out boolValue))
-                                if (!bool.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out boolValue))
-                                    throw new Exception(string.Format(ErrorMessage.CannotParseBoolean, cell.StringCellValue));
-                        }
+                        if(!TryGetBool(cell, out boolValue))
+                            if (!bool.TryParse(instanceMetadata.DefaultForNullOrInvalidValues, out boolValue))
+                                throw new Exception(string.Format(ErrorMessage.CannotParseBoolean, GetText(cell)));
                         instanceProperty.SetValue(t, Convert.ChangeType(boolValue, instanceProperty.PropertyType), null);
                     }
 
                     //Else is string
                     else
                     {
-                        instanceProperty.SetValue(t, Convert.ChangeType(cell.StringCellValue, instanceProperty.PropertyType), null);
+                        string value = string.Empty;
+                        if (TryGetText(cell, out value))
+                            instanceProperty.SetValue(t, Convert.ChangeType(value, instanceProperty.PropertyType), null);
+                        else if (instanceMetadata.DefaultForNullOrInvalidValues != null)
+                            instanceProperty.SetValue(t, Convert.ChangeType(instanceMetadata.DefaultForNullOrInvalidValues, instanceProperty.PropertyType), null);
+                        else
+                            throw new Exception(ErrorMessage.CannotParseString);
                     }
 
                     colIndex++; 
@@ -200,6 +183,190 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         public IExcelImportEngine AsExcel()
         {
             return this;
+        }
+
+        private bool TryGetNumber(ICell cell, out double returnValue)
+        {
+            returnValue = -1;
+
+            try
+            {
+                returnValue = cell.NumericCellValue;
+                return true;
+            } catch { }
+
+            try
+            {
+                switch (cell.CellType)
+                {
+                    case CellType.Blank:
+                        return false;
+                    case CellType.Boolean:
+                        returnValue = cell.BooleanCellValue ? 1 : 0;
+                        return true;
+                    case CellType.Error:
+                        return false;
+                    case CellType.Formula:
+                        return false;
+                    case CellType.Numeric:
+                        returnValue = cell.NumericCellValue;
+                        return true;
+                    case CellType.String:
+                        return double.TryParse(cell.StringCellValue, out returnValue);
+                    case CellType.Unknown:
+                        return double.TryParse(cell.StringCellValue, out returnValue);
+                    default:
+                        return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool TryGetText(ICell cell, out string returnValue)
+        {
+            returnValue = string.Empty;
+
+            try
+            {
+                returnValue = cell.StringCellValue;
+                return true;
+            } catch { }
+
+            try
+            {
+                switch (cell.CellType)
+                {
+                    case CellType.Blank:
+                        returnValue = string.Empty;
+                        return true;
+                    case CellType.Boolean:
+                        returnValue = cell.BooleanCellValue.ToString();
+                        return true;
+                    case CellType.Error:
+                        return false;
+                    case CellType.Formula:
+                        return false;
+                    case CellType.Numeric:
+                        returnValue = cell.NumericCellValue.ToString();
+                        return true;
+                    case CellType.String:
+                        returnValue = cell.StringCellValue;
+                        return true;
+                    case CellType.Unknown:
+                        returnValue = cell.StringCellValue;
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool TryGetBool(ICell cell, out bool returnValue)
+        {
+            returnValue = false;
+
+            try
+            {
+                returnValue = cell.BooleanCellValue;
+                return true;
+            } catch { }
+
+
+            try
+            {
+                switch (cell.CellType)
+                {
+                    case CellType.Blank:
+                        returnValue = false;
+                        return true;
+                    case CellType.Boolean:
+                        returnValue = cell.BooleanCellValue;
+                        return true;
+                    case CellType.Error:
+                        return false;
+                    case CellType.Formula:
+                        return false;
+                    case CellType.Numeric:
+                        if (cell.NumericCellValue == 0)
+                        {
+                            returnValue = false;
+                            return true;
+                        } else if (cell.NumericCellValue == 1)
+                        {
+                            returnValue = true;
+                            return true;
+                        }
+                        else
+                            return false;
+                    case CellType.String:
+                        return bool.TryParse(cell.StringCellValue, out returnValue);
+                    case CellType.Unknown:
+                        return bool.TryParse(cell.StringCellValue, out returnValue);
+                    default:
+                        return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool TryGetDate(ICell cell, out DateTime returnValue)
+        {
+            returnValue = new DateTime();
+
+            //First try to get the value from date cell
+            try
+            {
+                returnValue = cell.DateCellValue;
+                return true;
+            }
+            catch { }
+
+
+            try
+            {
+                switch (cell.CellType)
+                {
+                    case CellType.Blank:
+                        return false;
+                    case CellType.Boolean:
+                        return false;
+                    case CellType.Error:
+                        return false;
+                    case CellType.Formula:
+                        return false;
+                    case CellType.Numeric:
+                        return DateTime.TryParse(cell.NumericCellValue.ToString(), out returnValue);
+                    case CellType.String:
+                        return DateTime.TryParse(cell.StringCellValue.ToString(), out returnValue);
+                    case CellType.Unknown:
+                        return DateTime.TryParse(cell.StringCellValue.ToString(), out returnValue);
+                    default:
+                        return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private string GetText(ICell cell)
+        {
+            var value = string.Empty;
+            if (TryGetText(cell, out value))
+                return value;
+            else
+                return String.Empty;
         }
     }
 }
