@@ -130,6 +130,12 @@
   <data name="DummyPerson_xlsx" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\00_DummyPerson.xlsx;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="EmptyRows_xls" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\00_EmptyRows.xls;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="EmptyRows_xlsx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\00_EmptyRows.xlsx;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="MultipleData_xls" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\00_MultipleData.xls;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

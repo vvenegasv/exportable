@@ -30,6 +30,12 @@ namespace Infodinamica.Framework.Test.Tools
 
             if (!File.Exists(string.Format(@"{0}\00_MultipleData.xlsx", PathConfig.BASE_PATH)))
                 File.WriteAllBytes(string.Format(@"{0}\00_MultipleData.xlsx", PathConfig.BASE_PATH), Files.MultipleData_xlsx);
+
+            if (!File.Exists(string.Format(@"{0}\00_EmptyRows.xlsx", PathConfig.BASE_PATH)))
+                File.WriteAllBytes(string.Format(@"{0}\00_EmptyRows.xlsx", PathConfig.BASE_PATH), Files.EmptyRows_xlsx);
+
+            if (!File.Exists(string.Format(@"{0}\00_EmptyRows.xls", PathConfig.BASE_PATH)))
+                File.WriteAllBytes(string.Format(@"{0}\00_EmptyRows.xls", PathConfig.BASE_PATH), Files.EmptyRows_xls);
         }
     }
 }

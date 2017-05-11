@@ -113,6 +113,10 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
             for (int rowIndex = firstRow; rowIndex <= sheet.LastRowNum; rowIndex++)
             {
                 IRow row = sheet.GetRow(rowIndex);
+                //Fix error when excel has blank/empty lines
+                if (row == null)
+                    continue;
+                
                 int colIndex = 0;
                 T t = (T)Activator.CreateInstance(typeof(T));
                 foreach (var cell in row.Cells)

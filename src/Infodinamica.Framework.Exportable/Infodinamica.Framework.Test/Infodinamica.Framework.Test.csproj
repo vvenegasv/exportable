@@ -110,6 +110,8 @@
     <None Include="Resources\00_DummyPerson.xlsx" />
     <None Include="Resources\00_DummyPersonWithEmptyValues.xls" />
     <None Include="Resources\00_DummyPersonWithEmptyValues.xlsx" />
+    <None Include="Resources\00_EmptyRows.xls" />
+    <None Include="Resources\00_EmptyRows.xlsx" />
     <None Include="Resources\00_MultipleData.xls" />
     <None Include="Resources\00_MultipleData.xlsx" />
   </ItemGroup>

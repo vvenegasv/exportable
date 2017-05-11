@@ -252,7 +252,9 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
                             }
                             else
                             {
-                                var cellValue = (string)propValue;
+                                //https://github.com/vvenegasv/exportable/issues/2
+                                //Thanks to nesreeen
+                                var cellValue = Convert.ToString(propValue);
                                 fila.GetCell(cellCount).SetCellValue(cellValue);
                             }
                             break;

@@ -747,6 +747,11 @@
             Interfaz base de excepciones
             </summary>
         </member>
+        <member name="P:Infodinamica.Framework.Core.Exceptions.IException.InnerExceptions">
+            <summary>
+            Contiene un listado con las excepciones hijas
+            </summary>
+        </member>
         <member name="P:Infodinamica.Framework.Core.Exceptions.IException.NeedBeLogged">
             <summary>
             Indica si el error debe ser logeado
@@ -763,6 +768,12 @@
             </summary>
             <param name="key"></param>
             <param name="message"></param>
+        </member>
+        <member name="M:Infodinamica.Framework.Core.Exceptions.IException.AddInnerException(System.Exception)">
+            <summary>
+            Agrega una excepción a la colección de excepciones
+            </summary>
+            <param name="ex"></param>
         </member>
         <member name="T:Infodinamica.Framework.Core.Mappers.BaseMapper">
             <summary>

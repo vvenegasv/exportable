@@ -15,6 +15,7 @@ namespace Infodinamica.Framework.Test.Testing
         private const string DUMMY_PERSON = "00_DummyPerson.xls";
         private const string DUMMY_PERSON_DEFAULT = "00_DummyPersonWithEmptyValues.xls";
         private const string MULTIPLE_DATA = "00_MultipleData.xls";
+        private const string EMPTY_ROWS = "00_EmptyRows.xls";
 
         public TestExcelXLSImport()
         {
@@ -94,6 +95,19 @@ namespace Infodinamica.Framework.Test.Testing
 
             if (!countItemsInSheets.Any() || countItemsInSheets.Sum() != 60)
                 throw new Exception("No se pudieron leer los registros en paralelo del documento " + MULTIPLE_DATA);
+        }
+
+        [TestMethod]
+        public void TestWithEmptyRows()
+        {
+            IImportEngine engine = new ExcelImportEngine();
+            engine.AsExcel().SetFormat(ExcelVersion.XLS);
+            engine.AsExcel().AddContainer<DummyPerson>("1", "Hoja1", 1);
+            engine.SetDocument(PathConfig.BASE_PATH + EMPTY_ROWS);
+            var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>("1");
+
+            if (!data.Any() || data.Count != 33)
+                throw new Exception("No se pudieron leer los registros del documento " + EMPTY_ROWS);
         }
     }
 }
