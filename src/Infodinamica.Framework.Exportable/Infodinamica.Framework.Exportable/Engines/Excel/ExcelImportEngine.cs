@@ -56,11 +56,15 @@ namespace Infodinamica.Framework.Exportable.Engines.Excel
         public void SetDocument(string path)
         {
             _file = new MemoryStream();
-            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
+
+            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                byte[] bytes = new byte[file.Length];
-                file.Read(bytes, 0, (int) file.Length);
-                _file.Write(bytes, 0, (int) file.Length);
+                byte[] buffer = new byte[32 * 1024]; // 32K buffer for example
+                int bytesRead;
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    _file.Write(buffer, 0, bytesRead);
+                }
             }
             _file.Position = 0;
         }
