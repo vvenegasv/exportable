@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/Infodinamica/exportable/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://www.infodinamica.cl/exportar-ilist-a-excel-con-npoi/</projectUrl>
+	<iconUrl>https://es.gravatar.com/userimage/101034715/cc029f93b4ab6e5c7e263d8db6b35b3a.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Now can accept IEnumerable instead of IList. Besides, now can ignore or rename properties in runtime. Finally, this version does not requieres Infodinamica.Framework.Core library. IMPORTANT: This version works only with .NET framework 4.5 or above. Besides, several namespace was shortened</releaseNotes>
+    <copyright>Copyright © 2016 - 2017 Infodinamica Limitada</copyright>
+    <tags>EXCEL EXCEL-2003 EXCEL-2007 EXPORT-EXCEL IMPORT-EXCEL NPOI NPOI-WRAPPER</tags>
+  </metadata>
+</package>
