@@ -1,4 +1,4 @@
-﻿namespace Exportable.Tools
+﻿namespace Exportable.Models
 {
     public enum FieldValueType
     {

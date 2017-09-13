@@ -3,22 +3,23 @@
 namespace Exportable.Engines.Excel
 {
     /// <summary>
-    /// Interfaz para exportar a un documento Excel
+    /// Interface to export data to Excel
     /// </summary>
     public interface IExcelExportEngine: IExportEngine
     {
         /// <summary>
-        /// Establece el listado de datos
+        /// Add dta to export
         /// </summary>
-        /// <typeparam name="T">Tipo de dato a exportar</typeparam>
-        /// <param name="data">Listado de datos a exportar</param>
-        /// <param name="sheetName">Nombre de la hoja</param>
-        void AddData<T>(IList<T> data, string sheetName) where T : class;
+        /// <typeparam name="TModel">Model type of data to export</typeparam>
+        /// <param name="data">Array with data to export</param>
+        /// <param name="sheetName">name of the worksheet to export</param>
+        /// <returns>Key of the dataset to export</returns>
+        string AddData<TModel>(IEnumerable<TModel> data, string sheetName) where TModel : class;
 
         /// <summary>
-        /// Establece el formato (XLS | XLSX)
+        /// Set the excel format (XLS | XLSX)
         /// </summary>
-        /// <param name="version">Formato Excel</param>
+        /// <param name="version">Excel format</param>
         void SetFormat(ExcelVersion version);
     }
 }

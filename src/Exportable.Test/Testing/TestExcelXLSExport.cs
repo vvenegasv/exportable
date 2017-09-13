@@ -188,6 +188,23 @@ namespace Exportable.Test.Testing
             engine.Export(filePath);
         }
 
+        [TestMethod]
+        public void ExportWithMixOrder()
+        {
+            IList<DummyPersonWithMixOrder> dummyPeople = new List<DummyPersonWithMixOrder>();
+            for (int index = 0; index < 30; index++)
+            {
+                dummyPeople.Add(DummyFactory.CreateDummyPersonWithMixOrder());
+            }
+
+            IExportEngine engine = new ExcelExportEngine();
+            engine.AsExcel().SetFormat(ExcelVersion.XLS);
+            engine.AddData(dummyPeople);
+            var fileName = Guid.NewGuid().ToString() + "-mix-order-class.xls";
+            var filePath = PathConfig.BASE_PATH + fileName;
+            engine.Export(filePath);
+        }
+
         /*
         [TestMethod]
         public void ExportIntensiveUsage()

@@ -26,9 +26,9 @@ namespace Exportable.Test.Testing
         public void TestWithAttribute()
         {
             IImportEngine engine = new ExcelImportEngine();
-            engine.AddContainer<DummyPersonWithAttributes>("1");
+            var key = engine.AddContainer<DummyPersonWithAttributes>();
             engine.SetDocument(PathConfig.BASE_PATH + DUMMY_PERSON);
-            var data = engine.GetList<DummyPersonWithAttributes>("1");
+            var data = engine.GetList<DummyPersonWithAttributes>(key);
 
             if (!data.Any() || data.Count != 30)
                 throw new Exception("No se pudieron leer los registros del documento DummySimplePerson.xlsx");
@@ -38,9 +38,9 @@ namespace Exportable.Test.Testing
         public void TestWithoutAttribute()
         {
             IImportEngine engine = new ExcelImportEngine();
-            engine.AsExcel().AddContainer<DummyPerson>("1", "Dummy People", 1);
+            var key = engine.AsExcel().AddContainer<DummyPerson>("Dummy People", 1);
             engine.SetDocument(PathConfig.BASE_PATH + DUMMY_PERSON);
-            var data = engine.GetList<DummyPerson>("1");
+            var data = engine.GetList<DummyPerson>(key);
 
             if (!data.Any() || data.Count != 30)
                 throw new Exception("No se pudieron leer los registros del documento DummySimplePerson.xlsx");
@@ -50,9 +50,9 @@ namespace Exportable.Test.Testing
         public void TestWithDefaults()
         {
             IImportEngine engine = new ExcelImportEngine();
-            engine.AsExcel().AddContainer<DummyPerson>("1", "Dummy People", 1);
+            var key = engine.AsExcel().AddContainer<DummyPerson>("Dummy People", 1);
             engine.SetDocument(PathConfig.BASE_PATH + DUMMY_PERSON_DEFAULTS);
-            var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>("1");
+            var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>(key);
 
             if (!data.Any() || data.Count != 30)
                 throw new Exception("No se pudieron leer los registros del documento " + DUMMY_PERSON_DEFAULTS);
@@ -67,17 +67,17 @@ namespace Exportable.Test.Testing
             var resetEvents = new List<ManualResetEvent>();
             var countItemsInSheets = new List<int>();
 
-            foreach (var key in new string[] { "1", "2" })
+            foreach (var index in new string[] { "1", "2" })
             {
                 var evt = new ManualResetEvent(false);
                 resetEvents.Add(evt);
                 ThreadPool.QueueUserWorkItem(i =>
                 {
-                    engine.AsExcel().AddContainer<DummyPerson>(key, "Hoja" + key, 1);
-                    var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>((string)i);
+                    var key = engine.AsExcel().AddContainer<DummyPerson>("Hoja" + index, 1);
+                    var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>(key);
                     countItemsInSheets.Add(data.Count);
                     evt.Set();
-                }, key);
+                }, index);
             }
 
             foreach (var evt in resetEvents)
@@ -91,9 +91,9 @@ namespace Exportable.Test.Testing
         public void TestWithEmptyRows()
         {
             IImportEngine engine = new ExcelImportEngine();
-            engine.AsExcel().AddContainer<DummyPerson>("1", "Hoja1", 1);
+            var key = engine.AsExcel().AddContainer<DummyPerson>("Hoja1", 1);
             engine.SetDocument(PathConfig.BASE_PATH + EMPTY_ROWS);
-            var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>("1");
+            var data = engine.GetList<DummyPersonWithAttributesAndDefaultValues>(key);
 
             if (!data.Any() || data.Count != 33)
                 throw new Exception("No se pudieron leer los registros del documento " + EMPTY_ROWS);

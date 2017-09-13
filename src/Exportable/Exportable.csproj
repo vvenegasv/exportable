@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Exportable</RootNamespace>
     <AssemblyName>Exportable</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Exportable.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,12 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Infodinamica.Framework.Core, Version=3.5.0.25888, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Infodinamica.Framework.Core.3.5.0.24220\lib\net35\Infodinamica.Framework.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.3.0\lib\net20\NPOI.dll</HintPath>
@@ -75,11 +73,12 @@
     <Compile Include="Engines\IExportEngine.cs" />
     <Compile Include="Engines\IImportEngine.cs" />
     <Compile Include="Engines\Excel\IExcelStyle.cs" />
+    <Compile Include="Helpers\TypeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\RowStyle.cs" />
-    <Compile Include="Tools\MetadataHelper.cs" />
-    <Compile Include="Tools\FieldValueType.cs" />
-    <Compile Include="Tools\Metadata.cs" />
+    <Compile Include="InternalModels\RowStyle.cs" />
+    <Compile Include="Helpers\MetadataHelper.cs" />
+    <Compile Include="Models\FieldValueType.cs" />
+    <Compile Include="InternalModels\Metadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

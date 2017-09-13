@@ -1,4 +1,6 @@
-﻿namespace Exportable.Tools
+﻿using Exportable.Models;
+
+namespace Exportable.InternalModels
 {
     internal class Metadata
     {
@@ -7,6 +9,10 @@
         public FieldValueType FieldValueType { get; set; }
         public string Name { get; internal set; }
         public string DefaultForNullOrInvalidValues { get; set; }
+
+        public Metadata()
+        {
+        }
 
         public Metadata(string name, int position, string format, FieldValueType type, string defaultForNullOrInvalidValues)
         {

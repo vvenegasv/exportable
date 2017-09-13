@@ -145,6 +145,57 @@ namespace Exportable.Test.Testing
             engine.Export(filePath);
         }
 
+
+        [TestMethod]
+        public void ExportWithMixOrder()
+        {
+            IList<DummyPersonWithMixOrder> dummyPeople = new List<DummyPersonWithMixOrder>();
+            for (int index = 0; index < 30; index++)
+            {
+                dummyPeople.Add(DummyFactory.CreateDummyPersonWithMixOrder());
+            }
+
+            IExportEngine engine = new ExcelExportEngine();
+            engine.AddData(dummyPeople);
+            var fileName = Guid.NewGuid().ToString() + "-mix-order-class.xlsx";
+            var filePath = PathConfig.BASE_PATH + fileName;
+            engine.Export(filePath);
+        }
+
+        [TestMethod]
+        public void ExportWithAttributesAndRuntimeIgnore()
+        {
+            IList<DummyPersonWithAttributes> dummyPeople = new List<DummyPersonWithAttributes>();
+            for (int index = 0; index < 30; index++)
+            {
+                dummyPeople.Add(DummyFactory.CreateDummyPersonWithAttributes());
+            }
+
+            IExportEngine engine = new ExcelExportEngine();
+            var key = engine.AddData(dummyPeople);
+            engine.AddIgnoreColumns<DummyPersonWithAttributes>(key, x => x.Name);
+            var fileName = Guid.NewGuid().ToString() + "-with-runtime-ignore.xlsx";
+            var filePath = PathConfig.BASE_PATH + fileName;
+            engine.Export(filePath);
+        }
+
+        [TestMethod]
+        public void ExportWithAttributesAndRuntimeRename()
+        {
+            IList<DummyPersonWithAttributes> dummyPeople = new List<DummyPersonWithAttributes>();
+            for (int index = 0; index < 30; index++)
+            {
+                dummyPeople.Add(DummyFactory.CreateDummyPersonWithAttributes());
+            }
+
+            IExportEngine engine = new ExcelExportEngine();
+            var key = engine.AddData(dummyPeople);
+            engine.AddColumnsNames<DummyPersonWithAttributes>(key, x => x.Name, "this is a new name LOL!");
+            var fileName = Guid.NewGuid().ToString() + "-with-runtime-rename.xlsx";
+            var filePath = PathConfig.BASE_PATH + fileName;
+            engine.Export(filePath);
+        }
+
         /*
         [TestMethod]
         public void ExportIntensiveUsage()

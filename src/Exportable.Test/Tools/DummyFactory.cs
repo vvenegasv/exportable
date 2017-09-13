@@ -75,6 +75,17 @@ namespace Exportable.Test.Tools
             return person;
         }
 
+        public static DummyPersonWithMixOrder CreateDummyPersonWithMixOrder()
+        {
+            var person = new DummyPersonWithMixOrder();
+            person.BirthDate = RandomBirthDate();
+            person.Name = RandomName();
+            person.Age = DateTime.Now.Year - person.BirthDate.Year;
+            person.IsAdult = person.Age > 18;
+
+            return person;
+        }
+
         private static string RandomName()
         {
             int maxValue = Names.Count-1;

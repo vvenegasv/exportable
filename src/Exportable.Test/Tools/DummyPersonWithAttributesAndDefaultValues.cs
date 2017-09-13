@@ -1,6 +1,6 @@
 ﻿using System;
 using Exportable.Attribute;
-using Exportable.Tools;
+using Exportable.Models;
 
 namespace Exportable.Test.Tools
 {

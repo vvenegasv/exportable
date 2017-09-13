@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Exportable.Helpers;
 using Exportable.Resources;
-using Exportable.Tools;
-using Infodinamica.Framework.Core.Containers;
-using Infodinamica.Framework.Core.Extensions.Common;
-using Infodinamica.Framework.Core.Extensions.Reflection;
 using NPOI.SS.UserModel;
 
 namespace Exportable.Engines.Excel
@@ -90,15 +87,15 @@ namespace Exportable.Engines.Excel
             var tuple = _containers.FirstOrDefault(c => c.Item1 == key);
 
             //Check tuple exists
-            if (tuple == null || StringMethods.IsNullOrWhiteSpace(tuple.Item1))
+            if (tuple == null || string.IsNullOrWhiteSpace(tuple.Item1))
                 throw new Exception(string.Format(ErrorMessage.KeyNotFound, key));
 
             //Get sheet name from tuple or attributes
             var sheetName = tuple.Item3;
-            if (StringMethods.IsNullOrWhiteSpace(sheetName))
+            if (string.IsNullOrWhiteSpace(sheetName))
                 sheetName = MetadataHelper.GetSheetNameFromAttribute(tuple.Item2);
 
-            if(StringMethods.IsNullOrWhiteSpace(sheetName))
+            if(string.IsNullOrWhiteSpace(sheetName))
                 throw new Exception(ErrorMessage.SheetNameNotProvided);
 
             //Get sheet

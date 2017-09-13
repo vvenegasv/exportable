@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq.Expressions;
+using System.Reflection;
+using Exportable.InternalModels;
 using Exportable.Resources;
-using Exportable.Tools;
-using Infodinamica.Framework.Core.Extensions.Common;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
@@ -21,19 +23,19 @@ namespace Exportable.Engines.Excel
         internal XSSFWorkbook ExcelXlsx { get; set; }
         internal ExcelVersion ExcelVersion;
         private short? _palleteColorSize = null;
-
+        
 
         public ExcelEngine()
         {
             ExcelVersion = ExcelVersion.XLSX;
         }
-
+        
         public void SetFormat(ExcelVersion version)
         {
             ExcelVersion = version;
         }
         
-        internal void Write(ref MemoryStream stream)
+        public void Write(ref MemoryStream stream)
         {
             if (stream == null)
                 stream = new MemoryStream();
@@ -50,20 +52,20 @@ namespace Exportable.Engines.Excel
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
         }
+        
 
         internal ICellStyle GetStyleWithFormat(ICellStyle baseStyle, string dataFormat)
         {
             return GetStyleWithFormat(baseStyle, dataFormat, false);
         }
-
-
+        
         internal ICellStyle GetStyleWithFormat(ICellStyle baseStyle, string dataFormat, bool isNumberOrDate)
         {
             ICellStyle cellStyle = this.CreateCellStyle();
             cellStyle.CloneStyleFrom(baseStyle);
 
             //Se valida que tenga formato
-            if (StringMethods.IsNullOrWhiteSpace(dataFormat))
+            if (string.IsNullOrWhiteSpace(dataFormat))
                 return cellStyle;
 
             //Las fechas las forzamos a utilizar un nuevo formato y no uno predefinido
@@ -310,6 +312,24 @@ namespace Exportable.Engines.Excel
                 default:
                     throw new Exception(ErrorMessage.Excel_BadVersion);
             }
+        }
+
+        internal PropertyInfo GetPropertyInfo<TModel, TProperty>(Expression<Func<TModel, TProperty>> propertyExpression)
+        {
+            var type = typeof(TModel);
+
+            var member = propertyExpression.Body as MemberExpression;
+            if (member == null)
+                throw new ArgumentException($"Expression '{propertyExpression}' refers to a method, not a property.");
+
+            var propInfo = member.Member as PropertyInfo;
+            if (propInfo == null)
+                throw new ArgumentException($"Expression '{propertyExpression}' refers to a field, not a property.");
+
+            if (type != propInfo.ReflectedType && !type.IsSubclassOf(propInfo.ReflectedType))
+                throw new ArgumentException($"Expresion '{propertyExpression}' refers to a property that is not from type {type}.");
+
+            return propInfo;
         }
     }
 }
