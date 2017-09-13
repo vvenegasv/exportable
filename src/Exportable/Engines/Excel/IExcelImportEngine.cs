@@ -9,18 +9,18 @@
         /// Establece el tipo de dato que se obtendrá al leer una hoja Excel
         /// </summary>
         /// <typeparam name="T">Tipo de dato a retornar</typeparam>
-        /// <param name="key">Nombre único asociado al tipo de dato</param>
         /// <param name="sheetName">Nombre de la hoja</param>
-        void AddContainer<T>(string key, string sheetName) where T : class;
+        /// <returns>Key of the setted container</returns>
+        string AddContainer<T>(string sheetName) where T : class;
 
         /// <summary>
         /// Establece el tipo de dato que se obtendrá al leer una hoja Excel
         /// </summary>
         /// <typeparam name="T">Tipo de dato a retornar</typeparam>
-        /// <param name="key">Nombre único asociado al tipo de dato</param>
         /// <param name="sheetName">Nombre de la hoja</param>
         /// <param name="firsRowWithData">Primera fila con datos zero-based</param>
-        void AddContainer<T>(string key, string sheetName, int firsRowWithData) where T : class;
+        /// <returns>Key of the setted container</returns>
+        string AddContainer<T>(string sheetName, int firsRowWithData) where T : class;
 
         /// <summary>
         /// Establece el formato del documento a leer

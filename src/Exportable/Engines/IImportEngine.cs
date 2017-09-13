@@ -25,8 +25,8 @@ namespace Exportable.Engines
         /// Establece el tipo de dato que contendrá el resultado
         /// </summary>
         /// <typeparam name="T">Tipo de dato retornado</typeparam>
-        /// <param name="key">Nombre único asociado al tipo de dato retornado</param>
-        void AddContainer<T>(string key) where T : class;
+        /// <returns>Key of the setted container</returns>
+        string AddContainer<T>() where T : class;
 
         /// <summary>
         /// Obtiene el listado de datos

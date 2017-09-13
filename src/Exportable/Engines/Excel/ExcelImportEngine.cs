@@ -30,19 +30,25 @@ namespace Exportable.Engines.Excel
             _wasReaded = false;
         }
 
-        public void AddContainer<T>(string key) where T : class
+        public string AddContainer<T>() where T : class
         {
+            var key = Guid.NewGuid().ToString();
             _containers.Add(Tuple.Create(key, typeof (T), string.Empty, 0));
+            return key;
         }
 
-        public void AddContainer<T>(string key, string sheetName) where T : class
+        public string AddContainer<T>(string sheetName) where T : class
         {
+            var key = Guid.NewGuid().ToString();
             _containers.Add(Tuple.Create(key, typeof(T), sheetName, 0));
+            return key;
         }
 
-        public void AddContainer<T>(string key, string sheetName, int firsRowWithData) where T : class
+        public string AddContainer<T>(string sheetName, int firsRowWithData) where T : class
         {
+            var key = Guid.NewGuid().ToString();
             _containers.Add(Tuple.Create(key, typeof(T), sheetName, firsRowWithData));
+            return key;
         }
 
         public void SetDocument(MemoryStream file)
