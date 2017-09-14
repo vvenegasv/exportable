@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id</id>
+    <id>Infodinamica.Framework.Exportable</id>
     <version>$version$</version>
-    <title>$title$</title>
+    <title>Infodinamica.Framework.Exportable</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/Infodinamica/exportable/blob/master/LICENSE</licenseUrl>
