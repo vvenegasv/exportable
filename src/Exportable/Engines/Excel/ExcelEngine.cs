@@ -314,22 +314,43 @@ namespace Exportable.Engines.Excel
             }
         }
 
-        internal PropertyInfo GetPropertyInfo<TModel, TProperty>(Expression<Func<TModel, TProperty>> propertyExpression)
+        internal PropertyInfo GetPropertyInfo<TModel>(Expression<Func<TModel, object>> propertyExpression)
         {
             var type = typeof(TModel);
-
-            var member = propertyExpression.Body as MemberExpression;
-            if (member == null)
-                throw new ArgumentException($"Expression '{propertyExpression}' refers to a method, not a property.");
-
-            var propInfo = member.Member as PropertyInfo;
-            if (propInfo == null)
-                throw new ArgumentException($"Expression '{propertyExpression}' refers to a field, not a property.");
+            PropertyInfo propInfo;
+            
+            if (propertyExpression.Body is MemberExpression)
+                propInfo = GetPropertyFromMemberExpression((propertyExpression.Body as MemberExpression));
+            else if (propertyExpression.Body is UnaryExpression)
+                propInfo = GetPropertyFromUnaryExpression((propertyExpression.Body as UnaryExpression));
+            else
+                throw new ArgumentException($"Expresion '{propertyExpression}' not refers to a valid property");
 
             if (type != propInfo.ReflectedType && !type.IsSubclassOf(propInfo.ReflectedType))
                 throw new ArgumentException($"Expresion '{propertyExpression}' refers to a property that is not from type {type}.");
 
             return propInfo;
+        }
+
+        private PropertyInfo GetPropertyFromMemberExpression(MemberExpression expression)
+        {
+            var propInfo = expression.Member as PropertyInfo;
+            if (propInfo == null)
+                throw new ArgumentException($"Expression '{expression}' not refers to a valid property.");
+            
+            return propInfo;
+        }
+
+        private PropertyInfo GetPropertyFromUnaryExpression(UnaryExpression expression)
+        {
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression), "The UnaryExpression cannot be null");
+
+            var member = expression.Operand as MemberExpression;
+            if (member == null)
+                throw new ArgumentException($"Expression {expression} not refers to a valid MemberExpression");
+
+            return GetPropertyFromMemberExpression(member);
         }
     }
 }
