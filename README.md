@@ -10,11 +10,13 @@
 
 # Requirements
 **Have a plain class**   
-`public class DummyPerson`   
-`{`   
-    `    public int Edad { get; set; }`   
-    `    public string Nombre { get; set; }`   
-`}`
+```
+public class DummyPerson
+{
+    public int Edad { get; set; }
+    public string Nombre { get; set; }
+}
+```
 
 **Add this usings**:   
 `using Exportable.Engines;`  
