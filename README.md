@@ -1,15 +1,15 @@
-# Changes in version 2.0
+# 1. Changes in version 2.0
 * Version 2.0 has a shorter namespace, from `Infodinamica.Framework.Exportable` to `Exportable`
 * Version 2.0 don't requieres set the `Key` parameter in `AddContainer` method
 * Version 2.0 support ignore and rename columns on runtime
 * Version 2.0 don't use Infodinamica.Framework.Core
 * Version 2.0 use the latest stable NPOI release (2.3.0)
 
-# Installation with NUGET
+# 2. Installation with NUGET
 `Install-Package Infodinamica.Framework.Exportable`
 
-# Requirements
-**Have a plain class**   
+# 3. Requirements
+### 3.1 Have a plain class 
 ``` c#
 public class DummyPerson
 {
@@ -18,14 +18,18 @@ public class DummyPerson
 }
 ```
 
-**Add this usings**:   
+
+
+# 4. Export
+
+## 4.1. Namespaces
+These are the commonly namespace required's to export:
 ``` c#
 using Exportable.Engines;
 using Exportable.Engines.Excel;
 ```
 
-# Simple Export   
-**Use the IExportEngine interface**  
+## 4.2. Simple Export  
 ``` c#
 IList<DummyPerson> dummyPeople = new List<DummyPerson>();
 //Add data to dummyPeople...
@@ -34,8 +38,7 @@ engine.AddData(dummyPeople);
 MemoryStream memory = engine.Export();
 ```
 
-# Set Excel version
-**Use the IExcelExportEngine interface**  
+## 4.3. Specifying the Excel version
 ``` c#
 IList<DummyPerson> dummyPeople = new List<DummyPerson>();
 //Add data to dummyPeople...
@@ -45,14 +48,13 @@ engine.AddData(dummyPeople);
 MemoryStream memory = engine.Export();
 ```
 
-
-# Set columns name's, order and format
-**First, add this using**    
+## 4.4. Set columns name's, order and format
+### 4.4.1 First, add this using 
 ``` c#
 using Exportable.Attribute;
 ```
 
-**Second, set "Exportable" attributes**    
+### 4.4.2 Second, set "Exportable" attributes  
 ``` c#
 public class DummyPerson
 {   
@@ -69,3 +71,10 @@ public class DummyPerson
     public bool IsAdult { get; set; }   
 }
 ```
+
+## Override column names
+
+
+# Import
+
+## Simple Import
