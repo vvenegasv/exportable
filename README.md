@@ -49,12 +49,12 @@ MemoryStream memory = engine.Export();
 ```
 
 ## 4.4. Set columns name's, order and format
-### 4.4.1 First, add this using 
+### 4.4.1. First, add this using 
 ``` c#
 using Exportable.Attribute;
 ```
 
-### 4.4.2 Second, set "Exportable" attributes  
+### 4.4.2. Second, set "Exportable" attributes  
 ``` c#
 public class DummyPerson
 {   
@@ -68,12 +68,57 @@ public class DummyPerson
     public int Age { get; set; }
     
     [Exportable(4, "Is Adult", FieldValueType.Bool)]    
-    public bool IsAdult { get; set; }   
+    public bool IsAdult { get; set; }  
+    
+    [Exportable(IsIgnored = true)]
+    public string ThisColumnWillBeIgnored { get; set; }
 }
 ```
 
-## Override column names
+## 4.5. Override column names
+You can override the column name with `AddColumnsNames` method. You need a plain class (in this case `DummyPersonWithAttributes`) and specify the new column name. Please note that this configuration overrides the column name specified in the class attribute
+``` c#
+IExportEngine engine = new ExcelExportEngine();
+var key = engine.AddData(dummyPeople);
+engine.AddColumnsNames<DummyPersonWithAttributes>(key, x => x.Name, "this is a new name LOL!");
+var stream = engine.Export();
+```
 
+## 4.6. Ignore column names on runtime
+You can ignore columns with `AddIgnoreColumns` method. You need a plain class (in this case `DummyPersonWithAttributes`) and specify the column that you want to ignore. Please note that this configuration overrides the column ignore specified in the class attribute
+``` c#
+IExportEngine engine = new ExcelExportEngine();
+var key = engine.AddData(dummyPeople);
+engine.AddIgnoreColumns<DummyPersonWithAttributes>(key, x => x.Name);
+var stream = engine.Export();
+```
+
+## 4.7. Specify a column name by resource
+You can handle internationalization column names, by using resources in attributes
+
+### 4.7.1. Plain class
+``` c#
+class DummyPersonWithAttributesAndResource
+{
+    [Exportable(Position = 0, HeaderName = "Header1", ResourceType = typeof(res), TypeValue = FieldValueType.Text)]
+    public string Name { get; set; }
+
+    [Exportable(1, "Header2", FieldValueType.Date, "MM-yyyy", ResourceType = typeof(res))]
+    public DateTime BirthDate { get; set; }
+
+    [Exportable(IsIgnored = true)]
+    public int Age { get; set; }
+
+    [Exportable(3, "Is Adult", FieldValueType.Bool)]
+    public bool IsAdult { get; set; }
+}
+```
+
+### 4.7.2. Resource
+Name     | Value
+---------|------------
+Header1  | Column 1
+Header2  | Column 2
 
 # Import
 
