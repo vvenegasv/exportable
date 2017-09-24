@@ -48,20 +48,24 @@ MemoryStream memory = engine.Export();
 
 # Set columns name's, order and format
 **First, add this using**    
-`using Exportable.Attribute;`      
+``` c#
+using Exportable.Attribute;
+```
 
 **Second, set "Exportable" attributes**    
-`public class DummyPerson`   
-`{`   
-`[Exportable(3, "Full Name", FieldValueType.Text)]`    
-`public string Name { get; set; }`    
-
-`[Exportable(1, "Birth Date", FieldValueType.Date, "MM-yyyy")]`   
-`public DateTime BirthDate { get; set; }`   
-
-`[Exportable(2, "How Many Years", FieldValueType.Numeric, "#0")]`   
-`public int Age { get; set; }`   
-
-`[Exportable(4, "Is Adult", FieldValueType.Bool)]`    
-`public bool IsAdult { get; set; }  `   
-`}`
+``` c#
+public class DummyPerson
+{   
+    [Exportable(3, "Full Name", FieldValueType.Text)]  
+    public string Name { get; set; }
+    
+    [Exportable(1, "Birth Date", FieldValueType.Date, "MM-yyyy")]   
+    public DateTime BirthDate { get; set; } 
+    
+    [Exportable(2, "How Many Years", FieldValueType.Numeric, "#0")]   
+    public int Age { get; set; }
+    
+    [Exportable(4, "Is Adult", FieldValueType.Bool)]    
+    public bool IsAdult { get; set; }   
+}
+```
