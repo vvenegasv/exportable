@@ -1,20 +1,27 @@
-# Instalación vía NUGET
+# Changes in version 2.0
+* Version 2.0 has a shorter namespace, from `Infodinamica.Framework.Exportable` to `Exportable`
+* Version 2.0 don't requieres set the `Key` parameter in `AddContainer` method
+* Version 2.0 support ignore and rename columns on runtime
+* Version 2.0 don't use Infodinamica.Framework.Core
+* Version 2.0 use the latest stable NPOI release (2.3.0)
+
+# Installation with NUGET
 `Install-Package Infodinamica.Framework.Exportable`
 
-# Requerimientos
-**Tener una clase plana**   
+# Requirements
+**Have a plain class**   
 `public class DummyPerson`   
 `{`   
     `    public int Edad { get; set; }`   
     `    public string Nombre { get; set; }`   
 `}`
 
-**Agregar los siguientes using**:   
-`using Infodinamica.Framework.Exportable.Engines;`  
-`using Infodinamica.Framework.Exportable.Engines.Excel;`
+**Add this usings**:   
+`using Exportable.Engines;`  
+`using Exportable.Engines.Excel;`
 
-# Exportación Simple   
-**Utilizar la interfaz IExportEngine**  
+# Simple Export   
+**Use the IExportEngine interface**  
 `IList<DummyPerson> dummyPeople = new List<DummyPerson>();`    
 `//Add data to dummyPeople...`   
 `IExportEngine engine = new ExcelExportEngine();`  
@@ -22,8 +29,8 @@
 `MemoryStream memory = engine.Export();`  
 
 
-# Especificar versión de Excel
-**Utilizar la interfaz IExcelExportEngine**  
+# Set Excel version
+**Use the IExcelExportEngine interface**  
 `IList<DummyPerson> dummyPeople = new List<DummyPerson>();`    
 `//Add data to dummyPeople...`   
 `IExcelExportEngine engine = new ExcelExportEngine();`  
@@ -32,11 +39,11 @@
 `MemoryStream memory = engine.Export();` 
 
 
-# Especificar nombres de columnas, orden de campos y formatos
-**Primero, especificar el siguiente using**    
-`using Infodinamica.Framework.Exportable.Attribute;`      
+# Set columns name's, order and format
+**First, add this using**    
+`using Exportable.Attribute;`      
 
-**Segundo, especificar los atributos con "Exportable"**    
+**Second, set "Exportable" attributes**    
 `public class DummyPerson`   
 `{`   
 `[Exportable(3, "Full Name", FieldValueType.Text)]`    
