@@ -10,7 +10,7 @@
 
 # Requirements
 **Have a plain class**   
-```
+``` c#
 public class DummyPerson
 {
     public int Edad { get; set; }
@@ -19,26 +19,31 @@ public class DummyPerson
 ```
 
 **Add this usings**:   
-`using Exportable.Engines;`  
-`using Exportable.Engines.Excel;`
+``` c#
+using Exportable.Engines;
+using Exportable.Engines.Excel;
+```
 
 # Simple Export   
 **Use the IExportEngine interface**  
-`IList<DummyPerson> dummyPeople = new List<DummyPerson>();`    
-`//Add data to dummyPeople...`   
-`IExportEngine engine = new ExcelExportEngine();`  
-`engine.AddData(dummyPeople); `  
-`MemoryStream memory = engine.Export();`  
-
+``` c#
+IList<DummyPerson> dummyPeople = new List<DummyPerson>();
+//Add data to dummyPeople...
+IExportEngine engine = new ExcelExportEngine();
+engine.AddData(dummyPeople); 
+MemoryStream memory = engine.Export();
+```
 
 # Set Excel version
 **Use the IExcelExportEngine interface**  
-`IList<DummyPerson> dummyPeople = new List<DummyPerson>();`    
-`//Add data to dummyPeople...`   
-`IExcelExportEngine engine = new ExcelExportEngine();`  
-`engine.SetFormat(ExcelVersion.XLS);`    
-`engine.AddData(dummyPeople); `  
-`MemoryStream memory = engine.Export();` 
+``` c#
+IList<DummyPerson> dummyPeople = new List<DummyPerson>();
+//Add data to dummyPeople...
+IExcelExportEngine engine = new ExcelExportEngine();
+engine.SetFormat(ExcelVersion.XLS);
+engine.AddData(dummyPeople); 
+MemoryStream memory = engine.Export();
+```
 
 
 # Set columns name's, order and format
